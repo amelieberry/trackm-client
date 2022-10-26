@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { MainView } from './components/main-view/main-view';
 
 import './index.scss';
 
@@ -7,9 +8,7 @@ import './index.scss';
 class TrackmApplication extends React.Component {
     render() {
         return (
-            <div className ="trackm">
-                <div>Good morning</div>
-            </div>
+            <MainView />
         );
     }
 }
