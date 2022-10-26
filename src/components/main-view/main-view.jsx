@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Create mainView using React.Component and expose it
 export class MainView extends React.Component {
     render() {
         return (
