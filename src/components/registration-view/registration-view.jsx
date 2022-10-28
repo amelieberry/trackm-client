@@ -37,6 +37,6 @@ export function RegistrationView(props) {
     )
 }
 
-RegistrationView.PropTypes = {
+RegistrationView.propTypes = {
     onRegistration: PropTypes.func.isRequired
 };
