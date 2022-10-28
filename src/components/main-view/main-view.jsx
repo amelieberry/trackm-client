@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
+import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 
@@ -10,7 +11,8 @@ export class MainView extends React.Component {
         super();
         this.state = {
             movies: [],
-            selectedMovie: null
+            selectedMovie: null,
+            user: null
         };
     }
 
@@ -26,15 +28,26 @@ export class MainView extends React.Component {
         
     }
 
-    // selected movie custom component method
+    // update state of selectedMovie to the movie that was clicked
     setSelectedMovie(newSelectedMovie) {
         this.setState({
             selectedMovie: newSelectedMovie
         });
     }
+
+    // update user property in state to the successfully logged-in user
+    onLoggedIn(user) {
+        this.setState({
+            user
+        });
+    }
+
     
     render() {
-        const { movies, selectedMovie } = this.state;
+        const { movies, selectedMovie, user } = this.state;
+
+        // if no user, render LoginView, else pass the user details as prop to the LoginView
+        if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
         // if no movies in the array, return main view
         if (movies.length === 0) return <div className="main-view"/>;
