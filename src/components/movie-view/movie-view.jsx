@@ -51,6 +51,6 @@ MovieView.propTypes = {
             Death: PropTypes.string.isRequired
         }),
         ImagePath: PropTypes.string.isRequired,
-        Features: PropTypes.bool
+        Featured: PropTypes.bool
     }).isRequired
 };
