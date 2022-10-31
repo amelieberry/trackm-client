@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import { Row } from 'react-bootstrap/Row';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
@@ -64,18 +65,20 @@ export class MainView extends React.Component {
 
         // if a movie was selected, return view of selected movie, otherwise, return the list of movie cards
         return (
-            <div className="main-view">
+            <Row className="main-view justify-content-md-center">
                 {selectedMovie 
                 ? (
-                    <Row>
-                        <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
-                    </Row>
+                        <Col md={8}>
+                            <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
+                        </Col>
                 ) 
                 : movies.map(movie => (
-                <MovieCard  key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }} />
-                ))
-            }
-            </div>
+                            <Col md={3}>
+                                <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie); }} />
+                            </Col>
+                        ))
+                }
+            </Row>
         );
     }
 }
