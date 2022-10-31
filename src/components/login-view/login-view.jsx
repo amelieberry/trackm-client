@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { Form, Button, Card, CardGroup, Container, Col, Row } from 'react-bootstrap';
 
 export function LoginView(props) {
     const [ username, setUsername ] = useState('');
@@ -15,18 +14,42 @@ export function LoginView(props) {
     };
 
     return (
-        <Form>
-            <Form.Group>
-                <Form.Label>Username: </Form.Label>
-                <Form.Control type="text" value={username} onChange={e => setUsername(e.target.value)} />
-            </Form.Group>
+        <Container>
+            <Row>
+                <Col>
+                    <CardGroup>
+                        <Card>
+                            <Card.Body>
+                                <Form>
+                                    <Form.Group>
+                                        <Form.Label>Username: </Form.Label>
+                                        <Form.Control 
+                                            type="text" 
+                                            value={username} 
+                                            onChange={e => setUsername(e.target.value)} 
+                                            placeholder="Enter your username"
+                                            required
+                                        />
+                                    </Form.Group>
 
-            <Form.Group>
-                <Form.Label>Password: </Form.Label>
-                <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} />
-            </Form.Group>
-            <Button variant="primary" type="submit" onClick={handleSubmit}>Login</Button>
-        </Form>
+                                    <Form.Group>
+                                        <Form.Label>Password: </Form.Label>
+                                        <Form.Control 
+                                            type="password" 
+                                            value={password} 
+                                            onChange={e => setPassword(e.target.value)} 
+                                            placeholder="Enter your password"
+                                            required
+                                        />
+                                    </Form.Group>
+                                    <Button variant="primary" type="submit" onClick={handleSubmit}>Login</Button>
+                                </Form>
+                            </Card.Body>
+                        </Card>
+                    </CardGroup>
+                </Col>
+            </Row>
+        </Container>
     )
 }
 
