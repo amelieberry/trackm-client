@@ -48,9 +48,7 @@ export class MainView extends React.Component {
         this.setState({
             register
         });
-    }
-    
-
+    }   
     
     render() {
         const { movies, selectedMovie, user, register } = this.state;
@@ -76,3 +74,5 @@ export class MainView extends React.Component {
         );
     }
 }
+
+//

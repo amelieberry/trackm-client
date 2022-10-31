@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { MainView } from './components/main-view/main-view';
 
 import './index.scss';
@@ -15,6 +15,6 @@ class TrackmApplication extends React.Component {
 
 // Finds the root of the app
 const container = document.getElementsByClassName('app-container')[0];
-
+const rootElement = ReactDOM.createRoot(container)
 // Tells React to render the app in the root DOM Element
-ReactDOM.render(React.createElement(TrackmApplication), container);
+rootElement.render(<TrackmApplication />);
