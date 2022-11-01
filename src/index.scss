@@ -1,5 +1,11 @@
-$color: steelblue;
+$color: #cabae5;
+$background-color: #170e26;
 
-.trackm {
+html body {
     color: $color;
+    background: $background-color;
+}
+
+.app-container {
+    background: $background-color;
 }
