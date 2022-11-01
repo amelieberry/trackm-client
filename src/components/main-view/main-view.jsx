@@ -8,6 +8,8 @@ import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 
+import './main-view.scss';
+
 // Create mainView using React.Component and expose it
 export class MainView extends React.Component {
     constructor() {
@@ -68,12 +70,12 @@ export class MainView extends React.Component {
             <Row className="main-view justify-content-md-center">
                 {selectedMovie 
                 ? (
-                        <Col md={8}>
+                        <Col md={8} className="movie-view">
                             <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
                         </Col>
                 ) 
                 : movies.map(movie => (
-                            <Col md={4}>
+                            <Col sm={8} md={4} className="movie-card">
                                 <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie); }} />
                             </Col>
                         ))
