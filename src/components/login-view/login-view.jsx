@@ -20,7 +20,7 @@ export function LoginView(props) {
             <Row>
                 <Col>
                     <CardGroup>
-                        <Card>
+                        <Card bg="dark">
                             <Card.Body>
                                 <Form>
                                     <Form.Group>
