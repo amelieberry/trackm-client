@@ -18,7 +18,10 @@ export function RegistrationView(props) {
     };
 
     return (
-        <Container>
+        <Container className="d-flex flex-column justify-content-center align-items-center">
+            <Row>
+                <h1 className='registration-title'>Registration</h1>
+            </Row>
             <Row>
                 <Col>
                     <CardGroup>
@@ -42,7 +45,7 @@ export function RegistrationView(props) {
                                             type="password" 
                                             value={password} 
                                             onChange={e => setPassword(e.target.value)} 
-                                            placeholder="Your password must contain at least 8 characters"
+                                            placeholder="Enter your password"
                                             required
                                         />
                                     </Form.Group>
@@ -69,7 +72,7 @@ export function RegistrationView(props) {
                                         />
                                     </Form.Group>
 
-                                    <Button variant="primary" type="submit" onClick={handleSubmit}>Register</Button>
+                                    <Button className="button-register" variant="primary" type="submit" onClick={handleSubmit}>Register</Button>
                                 </Form>
                             </Card.Body>
                         </Card>

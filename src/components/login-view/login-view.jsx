@@ -16,7 +16,10 @@ export function LoginView(props) {
     };
 
     return (
-        <Container>
+        <Container className="d-flex flex-column justify-content-center align-items-center">
+            <Row>
+                <h1 className='login-title'>Login</h1>
+            </Row>
             <Row>
                 <Col>
                     <CardGroup>
@@ -44,7 +47,7 @@ export function LoginView(props) {
                                             required
                                         />
                                     </Form.Group>
-                                    <Button variant="primary" type="submit" onClick={handleSubmit}>Login</Button>
+                                    <Button className="button-login" variant="primary" type="submit" onClick={handleSubmit}>Login</Button>
                                 </Form>
                             </Card.Body>
                         </Card>
