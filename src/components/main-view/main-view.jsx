@@ -68,16 +68,16 @@ export class MainView extends React.Component {
         // if a movie was selected, return view of selected movie, otherwise, return the list of movie cards
         return (
             <Row className="main-view justify-content-md-center">
-                <Col className="card-columns">
                     {selectedMovie
                         ? (
                             <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
                         )
-                        : movies.map(movie => (
-                            <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie); }} />
-                        ))
+                        : <Col className="card-columns">
+                            { movies.map(movie => (
+                                <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie); }} />
+                            )) }
+                        </Col>
                     }
-                </Col>
             </Row>
         );
     }
