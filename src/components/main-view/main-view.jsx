@@ -22,15 +22,15 @@ export class MainView extends React.Component {
     }
 
     // Query trackm API server's /movies endpoint
-    async componentDidMount(){
+    async componentDidMount() {
         try {
             const response = await axios.get("https://trackm-app.herokuapp.com/movies");
             console.log(response);
-            this.setState({movies: response.data})
+            this.setState({ movies: response.data })
         } catch (error) {
             console.log(error);
         }
-        
+
     }
 
     // update state of selectedMovie to the movie that was clicked
@@ -52,8 +52,8 @@ export class MainView extends React.Component {
         this.setState({
             register
         });
-    }   
-    
+    }
+
     render() {
         const { movies, selectedMovie, user, register } = this.state;
 
@@ -63,23 +63,21 @@ export class MainView extends React.Component {
         if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
         // if no movies in the array, return main view
-        if (movies.length === 0) return <div className="main-view"/>;
+        if (movies.length === 0) return <div className="main-view" />;
 
         // if a movie was selected, return view of selected movie, otherwise, return the list of movie cards
         return (
             <Row className="main-view justify-content-md-center">
-                {selectedMovie 
-                ? (
-                        <Col md={8} className="movie-view">
-                            <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
-                        </Col>
-                ) 
-                : movies.map(movie => (
-                            <Col sm={10} md={4} lg={3} className="movie-card">
-                                <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie); }} />
-                            </Col>
+                <Col className="card-columns">
+                    {selectedMovie
+                        ? (
+                            <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+                        )
+                        : movies.map(movie => (
+                            <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie); }} />
                         ))
-                }
+                    }
+                </Col>
             </Row>
         );
     }
