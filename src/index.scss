@@ -1,11 +1,8 @@
-$color: #cabae5;
-$background-color: #170e26;
+$color: #ddd9dd;
+$background-color: #000;
 
-html body {
+html body, .app-container {
     color: $color;
     background: $background-color;
 }
 
-.app-container {
-    background: $background-color;
-}
