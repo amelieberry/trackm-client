@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Col, Row } from 'react-bootstrap';
 
 import './movie-card.scss';
 
@@ -17,8 +17,15 @@ export class MovieCard extends React.Component {
                     <Card.Img crossOrigin="anonymous" variant="top" src={movie.ImagePath} />
                     <Card.Body>
                         <Card.Title>{movie.Title}</Card.Title>
-                        <Card.Text className="card-description">{movie.Description}</Card.Text>
-                        <Button onClick={() => onMovieClick(movie)} variant="link">Open</Button>
+                        <Row>
+                            <Col>
+                                <Card.Text className="card-genre">{movie.Genre.Name}</Card.Text>
+                                <Card.Text className="card-release">{movie.ReleaseYear}</Card.Text>
+                            </Col>
+                            <Col className="d-flex justify-content-end align-items-center">
+                                <Button onClick={() => onMovieClick(movie)} variant="info">Open</Button>
+                            </Col>
+                        </Row>
                     </Card.Body>
                 </Card>
         );
@@ -28,7 +35,8 @@ export class MovieCard extends React.Component {
 MovieCard.propTypes = {
     movie: PropTypes.shape({
         Title: PropTypes.string.isRequired,
-        Description: PropTypes.string.isRequired,
+        Genre: PropTypes.string.isRequired,
+        ReleaseYear: PropTypes.string.isRequired,
         ImagePath: PropTypes.string.isRequired,
     }).isRequired,
     onMovieClick: PropTypes.func.isRequired
