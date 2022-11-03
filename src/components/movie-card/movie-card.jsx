@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Button, Col, Row } from 'react-bootstrap';
 
+import { Link } from "react-router-dom";
+
 import './movie-card.scss';
 
 
@@ -23,7 +25,9 @@ export class MovieCard extends React.Component {
                                 <Card.Text className="card-release">{movie.ReleaseYear}</Card.Text>
                             </Col>
                             <Col className="d-flex justify-content-end align-items-center">
-                                <Button onClick={() => onMovieClick(movie)} variant="info">Open</Button>
+                                <Link to={`/movies/${movie.id}`}>
+                                    <Button onClick={() => onMovieClick(movie)} variant="info">Open</Button>
+                                </Link>
                             </Col>
                         </Row>
                     </Card.Body>
