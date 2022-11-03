@@ -30,7 +30,7 @@ export function LoginView(props) {
             setPasswordErr('Password must contain at least 6 characters');
             isReq = false;
         }
-        
+
         return isReq;
     }
 
@@ -69,6 +69,7 @@ export function LoginView(props) {
                                             placeholder="Enter your username"
                                             required
                                         />
+                                        {usernameErr && <p>{usernameErr}</p>}
                                     </Form.Group>
 
                                     <Form.Group>
@@ -80,7 +81,9 @@ export function LoginView(props) {
                                             placeholder="Enter your password"
                                             required
                                         />
+                                        {passwordErr && <p>{passwordErr}</p>}
                                     </Form.Group>
+                                    
                                     <Button className="button-login" variant="primary" type="submit" onClick={handleSubmit}>Login</Button>
                                 </Form>
                             </Card.Body>
