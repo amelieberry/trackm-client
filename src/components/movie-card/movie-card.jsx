@@ -10,7 +10,6 @@ import './movie-card.scss';
 export class MovieCard extends React.Component {
     render() {
         const { movie, onMovieClick } = this.props;
-
         return (
                 <Card
                     bg="dark"
@@ -25,7 +24,7 @@ export class MovieCard extends React.Component {
                                 <Card.Text className="card-release">{movie.ReleaseYear}</Card.Text>
                             </Col>
                             <Col className="d-flex justify-content-end align-items-center">
-                                <Link to={`/movies/${movie.id}`}>
+                                <Link to={`/movies/${movie._id}`}>
                                     <Button onClick={() => onMovieClick(movie)} variant="info">Open</Button>
                                 </Link>
                             </Col>
