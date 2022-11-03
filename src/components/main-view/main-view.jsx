@@ -1,5 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+
+import { BrowserRouter as Router, Routes } from 'react-router-dom';
+
 import { Row, Col } from 'react-bootstrap';
 
 import { RegistrationView } from '../registration-view/registration-view';
@@ -15,13 +18,26 @@ export class MainView extends React.Component {
         super();
         this.state = {
             movies: [],
-            selectedMovie: null,
             user: null
         };
     }
 
+    // get movies from API on logged-in
+    async getMovies(token) {
+        try {
+            const response = await axios.get("https://trackm-app.herokuapp.com/movies", {
+                headers: { Authorization: `Bearer ${token}` }
+            }) 
+            this.setState({
+                movies: response.data
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     // check if user is logged-in on page-load by checking the accessToken, if they are logged-in, get list of movies
-  componentDidMount() {
+    componentDidMount() {
         let accessToken = localStorage.getItem('token');
         if (accessToken !== null) {
             this.setState({
@@ -53,63 +69,68 @@ export class MainView extends React.Component {
         this.getMovies(authData.token);
     }
 
-    // get movies from API on logged-in
-    async getMovies(token) {
-        try {
-            const response = await axios.get("https://trackm-app.herokuapp.com/movies", {
-                headers: { Authorization: `Bearer ${token}` }
-            }) 
-            this.setState({
-                movies: response.data
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     // log out
-    onLoggedOut() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        this.setState({
-            user: null
-        });
-    }
+    // onLoggedOut() {
+    //     localStorage.removeItem('token');
+    //     localStorage.removeItem('user');
+    //     this.setState({
+    //         user: null
+    //     });
+    // }
 
     // update user property in state to the successfully registered user
-    onRegistration(register) {
-        this.setState({
-            register
-        });
-    }
+    // onRegistration(register) {
+    //     this.setState({
+    //         register
+    //     });
+    // }
 
     render() {
-        const { movies, selectedMovie, user, register } = this.state;
+        const { movies, user } = this.state;
 
         // if user is not registered, render RegistrationView
-        if (!register) return <RegistrationView onRegistration={(register) => this.onRegistration(register)} />;
+        // if (!register) return <RegistrationView onRegistration={(register) => this.onRegistration(register)} />;
 
         // if no user, render LoginView, else pass the user details as prop to the LoginView
-        if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+        if (!user) return <Row>
+            <Col>
+                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+            </Col>
+        </Row> 
 
         // if no movies in the array, return main view
         if (movies.length === 0) return <div className="main-view" />;
 
         // if a movie was selected, return view of selected movie, otherwise, return the list of movie cards
         return (
-            <Row className="main-view justify-content-md-center">
-                <button onClick={() => { this.onLoggedOut() }}>Logout</button>
-                    {selectedMovie
-                        ? (
-                            <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
-                        )
-                        : <Col className="card-columns">
-                            { movies.map(movie => (
-                                <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie); }} />
-                            )) }
+            <Router>
+                <Row className="main-view justify-content-md-center">
+
+                    <Routes exact path="/" render={() => {
+                        return movies.map(movie => (
+                            <Col key={movie._id} className="card-columns">
+                                <MovieCard  movie={movie} />
+                            </Col>
+                        ))
+                    }} />
+
+                    <Routes path="/movies/:movieID" render={({ match })=> {
+                        return <MovieView movie = {movies.find(movie => movie.id === match.params.MovieID)} />
+                    }} />
+
+                    <Routes path="/genres/:name" render={()=> {
+                        return <GenreView />
+                    }} />
+
+                    <Routes path="/directors/:name" render={({ match })=> {
+                        if (movies.length === 0) return <div className="main-view" />;
+                        return <Col md={8}>
+                            <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} />
                         </Col>
-                    }
-            </Row>
+                    }} />
+                </Row>
+            </Router>
+            
         );
     }
 }
