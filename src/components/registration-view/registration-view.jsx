@@ -10,11 +10,50 @@ export function RegistrationView(props) {
     const [ email, setEmail ] = useState('');
     const [ birthday, setBirthday ] = useState('');
 
+    // Declare hook for each input
+    const [ usernameErr, setUsernameErr ] = useState('');
+    const [ passwordErr, setPasswordErr ] = useState('');
+    const [ emailErr, setEmailErr ] = useState('');
+
+    // validate user input
+    const validate = () => {
+        let isReq = true;
+        if(!username) {
+            setUsernameErr('Username Required');
+            isReq = false;
+        } else if (username.length < 3) {
+            setUsernameErr('Username must contain at least 3 charaters');
+            isReq = false;
+        }
+
+        if (!password) {
+            setPasswordErr('Password Required');
+            isReq = false;
+        } else if (password.length < 6) {
+            setPasswordErr('Password must contain at least 6 characters');
+            isReq = false;
+        }
+
+        if (!email) {
+            emailErr('Email Required');
+            isReq = false;
+        } else if (email.indexOf('@' == -1) || email.indexOf('.') == -1) {
+            emailErr('Email must be an email address')
+            isReq = false
+        }
+
+        return isReq;
+    }
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(username, password, email, birthday);
-        // send request to server for authentication then call props.onLoggedIn(username)
+        const isReq = validate();
+        if (isReq) {
+            console.log(username, password, email, birthday);
+        // send request to server for authentication then call props.onRegistration(username);
         props.onRegistration(username);
+        }
     };
 
     return (
@@ -37,6 +76,7 @@ export function RegistrationView(props) {
                                             placeholder="Enter your username"
                                             required
                                         />
+                                        {usernameErr && <p>{usernameErr}</p>}
                                     </Form.Group>
 
                                     <Form.Group>
@@ -48,6 +88,7 @@ export function RegistrationView(props) {
                                             placeholder="Enter your password"
                                             required
                                         />
+                                        {passwordErr && <p>{passwordErr}</p>}
                                     </Form.Group>
 
                                     <Form.Group>
@@ -59,6 +100,7 @@ export function RegistrationView(props) {
                                             placeholder="Enter your email"
                                             required
                                         />
+                                        {emailErr && <p>{emailErr}</p>}
                                     </Form.Group>
 
                                     <Form.Group>
