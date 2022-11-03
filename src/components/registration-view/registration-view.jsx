@@ -35,10 +35,10 @@ export function RegistrationView(props) {
         }
 
         if (!email) {
-            emailErr('Email Required');
+            setEmailErr('Email Required');
             isReq = false;
         } else if (email.indexOf('@' == -1) || email.indexOf('.') == -1) {
-            emailErr('Email must be an email address')
+            setEmailErr('Email must be an email address')
             isReq = false
         }
 
@@ -52,8 +52,8 @@ export function RegistrationView(props) {
         if (isReq) {
             console.log(username, password, email, birthday);
         // send request to server for authentication then call props.onRegistration(username);
-        props.onRegistration(username);
         }
+        props.onRegistration(username);
     };
 
     return (
