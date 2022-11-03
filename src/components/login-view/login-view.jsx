@@ -9,6 +9,31 @@ export function LoginView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    // Declare hook for each input
+    const [usernameErr, setUsernameErr] = useState('');
+    const [passwordErr, setPasswordErr] = useState('');
+
+    // validate user input
+    const validate = () => {
+        let isReq = true;
+        if(!username) {
+            setUsernameErr('Username Required');
+            isReq = false;
+        } else if (username.length < 3) {
+            setUsernameErr('Username must contain at least 3 charaters');
+            isReq = false;
+        }
+        if (!password) {
+            setPasswordErr('Password Required');
+            isReq = false;
+        } else if (password.length < 6) {
+            setPasswordErr('Password must contain at least 6 characters');
+            isReq = false;
+        }
+        
+        return isReq;
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
