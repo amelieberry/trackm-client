@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Row, Col } from 'react-bootstrap';
 
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
@@ -21,16 +20,15 @@ export class MainView extends React.Component {
         };
     }
 
-    // Query trackm API server's /movies endpoint
-    async componentDidMount() {
-        try {
-            const response = await axios.get("https://trackm-app.herokuapp.com/movies");
-            console.log(response);
-            this.setState({ movies: response.data })
-        } catch (error) {
-            console.log(error);
+    // check if user is logged-in on page-load by checking the accessToken, if they are logged-in, get list of movies
+  componentDidMount() {
+        let accessToken = localStorage.getItem('token');
+        if (accessToken !== null) {
+            this.setState({
+                user: localStorage.getItem('user')
+            });
+            this.getMovies(accessToken);
         }
-
     }
 
     // update state of selectedMovie to the movie that was clicked
@@ -41,10 +39,31 @@ export class MainView extends React.Component {
     }
 
     // update user property in state to the successfully logged-in user
-    onLoggedIn(user) {
+    onLoggedIn(authData) {
+        console.log(authData);
+        // save Username in the user state
         this.setState({
-            user
+            user: authData.user.Username
         });
+
+        // save authentication info
+        localStorage.setItem('token', authData.token);
+        localStorage.setItem('user', authData.user.Username);
+        // get movies from API once user is logged-in
+        this.getMovies(authData.token);
+    }
+
+    async getMovies(token) {
+        try {
+            const response = await axios.get("https://trackm-app.herokuapp.com/movies", {
+                headers: { Authorization: `Bearer ${token}` }
+            }) 
+            this.setState({
+                movies: response.data
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     // update user property in state to the successfully registered user
@@ -59,6 +78,7 @@ export class MainView extends React.Component {
 
         // if user is not registered, render RegistrationView
         if (!register) return <RegistrationView onRegistration={(register) => this.onRegistration(register)} />;
+
         // if no user, render LoginView, else pass the user details as prop to the LoginView
         if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
