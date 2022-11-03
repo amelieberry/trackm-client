@@ -53,6 +53,7 @@ export class MainView extends React.Component {
         this.getMovies(authData.token);
     }
 
+    // get movies from API on logged-in
     async getMovies(token) {
         try {
             const response = await axios.get("https://trackm-app.herokuapp.com/movies", {
@@ -64,6 +65,15 @@ export class MainView extends React.Component {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    // log out
+    onLoggedOut() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        this.setState({
+            user: null
+        });
     }
 
     // update user property in state to the successfully registered user
@@ -88,6 +98,7 @@ export class MainView extends React.Component {
         // if a movie was selected, return view of selected movie, otherwise, return the list of movie cards
         return (
             <Row className="main-view justify-content-md-center">
+                <button onClick={() => { this.onLoggedOut() }}>Logout</button>
                     {selectedMovie
                         ? (
                             <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
