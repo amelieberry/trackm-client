@@ -36,16 +36,18 @@ export function LoginView(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        try {
-            // send request to server for authentication then call props.onLoggedIn(response.data)
-            const response = await axios.post('https://trackm-app.herokuapp.com/login', {
-                Username: username,
-                Password: password
-            })
-            props.onLoggedIn(response.data);
-        } catch (error) {
-            console.log(error, 'no such user');
+        const isReq = validate();
+        if (isReq) {
+            try {
+                // send request to server for authentication then call props.onLoggedIn(response.data)
+                const response = await axios.post('https://trackm-app.herokuapp.com/login', {
+                    Username: username,
+                    Password: password
+                })
+                props.onLoggedIn(response.data);
+            } catch (error) {
+                console.log(error, 'no such user');
+            }
         }
     };
 
@@ -83,7 +85,7 @@ export function LoginView(props) {
                                         />
                                         {passwordErr && <p>{passwordErr}</p>}
                                     </Form.Group>
-                                    
+
                                     <Button className="button-login" variant="primary" type="submit" onClick={handleSubmit}>Login</Button>
                                 </Form>
                             </Card.Body>
