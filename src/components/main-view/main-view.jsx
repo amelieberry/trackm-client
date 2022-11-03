@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
-import { BrowserRouter as Router, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom';
 
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Card } from 'react-bootstrap';
 
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
@@ -12,6 +12,11 @@ import { MovieView } from '../movie-view/movie-view';
 
 import './main-view.scss';
 
+const MovieRender = (object) => {
+    const movieId = useParams().movieID;
+    const found = object.movies.find(movieObj => movieObj._id === movieId);
+    return <MovieView movie={found} />
+}
 // Create mainView using React.Component and expose it
 export class MainView extends React.Component {
     constructor() {
@@ -27,7 +32,7 @@ export class MainView extends React.Component {
         try {
             const response = await axios.get("https://trackm-app.herokuapp.com/movies", {
                 headers: { Authorization: `Bearer ${token}` }
-            }) 
+            })
             this.setState({
                 movies: response.data
             });
@@ -87,7 +92,6 @@ export class MainView extends React.Component {
 
     render() {
         const { movies, user } = this.state;
-
         // if user is not registered, render RegistrationView
         // if (!register) return <RegistrationView onRegistration={(register) => this.onRegistration(register)} />;
 
@@ -96,7 +100,7 @@ export class MainView extends React.Component {
             <Col>
                 <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
             </Col>
-        </Row> 
+        </Row>
 
         // if no movies in the array, return main view
         if (movies.length === 0) return <div className="main-view" />;
@@ -105,32 +109,37 @@ export class MainView extends React.Component {
         return (
             <Router>
                 <Row className="main-view justify-content-md-center">
-
-                    <Routes exact path="/" render={() => {
-                        return movies.map(movie => (
-                            <Col key={movie._id} className="card-columns">
-                                <MovieCard  movie={movie} />
+                    <Routes>
+                        <Route exact path="/" element={(
+                            <Col className="card-columns">
+                                {movies.map(movie => (
+                                    <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie); }} />
+                                ))}
                             </Col>
-                        ))
-                    }} />
+                        )} />
 
-                    <Routes path="/movies/:movieID" render={({ match })=> {
-                        return <MovieView movie = {movies.find(movie => movie.id === match.params.MovieID)} />
-                    }} />
+                        {/* <Route path="/movies/:movieID" element={({ match }) => {
+                            return <MovieView movie={movies.find(movie => movie.id === match.params.movieID)} />
+                        }} /> */}
+                        <Route path="/movies/:movieID" element={(
+                           <MovieRender movies={movies}></MovieRender>
+                        )} />
 
-                    <Routes path="/genres/:name" render={()=> {
-                        return <GenreView />
-                    }} />
+                        <Route path="/genres/:name" render={() => {
+                            return <GenreView />
+                        }} />
 
-                    <Routes path="/directors/:name" render={({ match })=> {
-                        if (movies.length === 0) return <div className="main-view" />;
-                        return <Col md={8}>
-                            <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} />
-                        </Col>
-                    }} />
+                        <Route path="/directors/:name" render={({ match }) => {
+                            if (movies.length === 0) return <div className="main-view" />;
+                            return <Col md={8}>
+                                <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} />
+                            </Col>
+                        }} />
+                    </Routes>
+
                 </Row>
             </Router>
-            
+
         );
     }
 }
