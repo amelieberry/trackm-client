@@ -23,7 +23,7 @@ export function NavbarView({user}) {
     };
 
     return (
-        <Navbar className="navbar-view" fixed="top" expand="lg" bg="dark" variant="dark">
+        <Navbar className="navbar-view container-fluid" fixed="top" bg="dark" variant="dark">
             <Container>
                 <Navbar.Brand>Track'M</Navbar.Brand>
                 <Nav className="me-auto">
