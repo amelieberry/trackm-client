@@ -2,9 +2,11 @@ import React from "react";
 
 import { Navbar, Container } from 'react-bootstrap';
 
-export default function NavbarView() {
+import './navbar.scss';
+
+export function NavbarView() {
     return (
-        <Navbar bg="dark" variant="dark">
+        <Navbar className="navbar-view" fixed="top" expand="lg" bg="dark" variant="dark">
             <Container>
                 <Navbar.Brand>Track'M</Navbar.Brand>
             </Container>
