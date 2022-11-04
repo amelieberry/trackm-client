@@ -52,7 +52,7 @@ export function LoginView(props) {
     };
 
     return (
-        <Container className="d-flex flex-column justify-content-center align-items-center">
+        <Container className="login-container d-flex flex-column justify-content-center align-items-center">
             <Row>
                 <h1 className='login-title'>Login</h1>
             </Row>

@@ -57,7 +57,7 @@ export function RegistrationView(props) {
     };
 
     return (
-        <Container className="d-flex flex-column justify-content-center align-items-center">
+        <Container className="registration-container d-flex flex-column justify-content-center align-items-center">
             <Row>
                 <h1 className='registration-title'>Registration</h1>
             </Row>
