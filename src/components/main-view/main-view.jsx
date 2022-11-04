@@ -102,7 +102,7 @@ export class MainView extends React.Component {
         // if a movie was selected, return view of selected movie, otherwise, return the list of movie cards
         return (
             <Router>
-                <NavbarView />
+                <NavbarView user={user} />
                 <Row className="main-view justify-content-md-center">
                     <Routes>
                         <Route exact path="/" element={(
