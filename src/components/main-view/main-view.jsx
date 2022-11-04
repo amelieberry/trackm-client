@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useParams, useNavigate } from 'react-router-dom';
 
 import { Row, Col, Card } from 'react-bootstrap';
 
@@ -14,6 +14,7 @@ import './main-view.scss';
 
 const MovieRender = (object) => {
     const movieId = useParams().movieID;
+    const navigate = useNavigate();
     const found = object.movies.find(movieObj => movieObj._id === movieId);
     return <MovieView movie={found} />
 }
@@ -52,12 +53,12 @@ export class MainView extends React.Component {
         }
     }
 
-    // update state of selectedMovie to the movie that was clicked
-    setSelectedMovie(newSelectedMovie) {
-        this.setState({
-            selectedMovie: newSelectedMovie
-        });
-    }
+    // // update state of selectedMovie to the movie that was clicked
+    // setSelectedMovie(newSelectedMovie) {
+    //     this.setState({
+    //         selectedMovie: newSelectedMovie
+    //     });
+    // }
 
     // update user property in state to the successfully logged-in user
     onLoggedIn(authData) {
@@ -113,7 +114,7 @@ export class MainView extends React.Component {
                         <Route exact path="/" element={(
                             <Col className="card-columns">
                                 {movies.map(movie => (
-                                    <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie); }} />
+                                    <MovieCard key={movie._id} movie={movie}/>
                                 ))}
                             </Col>
                         )} />
