@@ -25,7 +25,7 @@ export class MovieCard extends React.Component {
                             </Col>
                             <Col className="d-flex justify-content-end align-items-center">
                                 <Link to={`/movies/${movie._id}`}>
-                                    <Button onClick={() => onMovieClick(movie)} variant="info">Open</Button>
+                                    <Button variant="info">Open</Button>
                                 </Link>
                             </Col>
                         </Row>
@@ -44,5 +44,4 @@ MovieCard.propTypes = {
         ReleaseYear: PropTypes.string.isRequired,
         ImagePath: PropTypes.string.isRequired,
     }).isRequired,
-    onMovieClick: PropTypes.func.isRequired
 };
