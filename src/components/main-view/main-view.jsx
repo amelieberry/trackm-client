@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import { BrowserRouter as Router, Route, Routes, useParams, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useParams, Redirect, useNavigate } from 'react-router-dom';
 
 import { Row, Col, Card } from 'react-bootstrap';
 
@@ -69,55 +69,59 @@ export class MainView extends React.Component {
     }
 
     // log out
-    // onLoggedOut() {
-    //     localStorage.removeItem('token');
-    //     localStorage.removeItem('user');
-    //     this.setState({
-    //         user: null
-    //     });
-    // }
+    onLoggedOut() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        this.setState({
+            user: null
+        });
+    }
 
     // update user property in state to the successfully registered user
-    // onRegistration(register) {
-    //     this.setState({
-    //         register
-    //     });
-    // }
+    onRegistration(register) {
+        this.setState({
+            register
+        });
+    }
 
     render() {
         const { movies, user } = this.state;
         // if user is not registered, render RegistrationView
         // if (!register) return <RegistrationView onRegistration={(register) => this.onRegistration(register)} />;
-
-        // if no user, render LoginView, else pass the user details as prop to the LoginView
-        if (!user) return <Row>
-            <Col>
-                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-            </Col>
-        </Row>
-
-        // if no movies in the array, return main view
-        if (movies.length === 0) return <div className="main-view" />;
-
-        // if a movie was selected, return view of selected movie, otherwise, return the list of movie cards
         return (
             <Router>
                 <NavbarView user={user} />
                 <Row className="main-view justify-content-md-center">
                     <Routes>
-                        <Route exact path="/" element={(
-                            <Col className="card-columns">
-                                {movies.map(movie => (
-                                    <MovieCard key={movie._id} movie={movie}/>
-                                ))}
+                        <Route path="/" element={(
+                            <Col>
+                                {(!user) ? 
+                                    <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                                    :
+                                    (movies.length === 0) ?
+                                    <div className="main-view" />
+                                    :
+                                    <Col className="card-columns">
+                                        {movies.map(movie => (
+                                            <MovieCard key={movie._id} movie={movie} />
+                                        ))}
+                                    </Col> 
+                                }
                             </Col>
                         )} />
-
-                        {/* <Route path="/movies/:movieID" element={({ match }) => {
-                            return <MovieView movie={movies.find(movie => movie.id === match.params.movieID)} />
-                        }} /> */}
+                        <Route path="/register" element={
+                            <Row>
+                                {(user) ? 
+                                    <Redirect to="/" />
+                                    :
+                                    <Col>
+                                        <RegistrationView />
+                                    </Col>
+                                }
+                            </Row>
+                        } />
                         <Route path="/movies/:movieID" element={(
-                           <MovieRender movies={movies}></MovieRender>
+                            <MovieRender movies={movies}></MovieRender>
                         )} />
 
                         <Route path="/genres/:name" render={() => {
