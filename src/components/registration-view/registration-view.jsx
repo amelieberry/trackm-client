@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { Form, Button, Card, CardGroup, Container, Col, Row } from 'react-bootstrap';
 
 import './registration-view.scss';
+import axios from 'axios';
 
-export function RegistrationView(props) {
+export function RegistrationView() {
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ email, setEmail ] = useState('');
@@ -37,23 +38,33 @@ export function RegistrationView(props) {
         if (!email) {
             setEmailErr('Email Required');
             isReq = false;
-        } else if (email.indexOf('@' == -1) || email.indexOf('.') == -1) {
+        } else if (email.indexOf('@') === -1) {
             setEmailErr('Email must be an email address')
-            isReq = false
+            isReq = false;
         }
-
         return isReq;
     }
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const isReq = validate();
         if (isReq) {
-            console.log(username, password, email, birthday);
+            try {
+                console.log(username, password, email, birthday);
+                const response = await axios.post('https://trackm-app.herokuapp.com/users', {
+                    Username: username,
+                    Password: password,
+                    Email: email,
+                    Birthday: birthday
+                })
+                console.log(response.data);
+                window.open('/', '_self');
+            } catch (error) {
+                console.error(error, 'error registering user');
+            }
         // send request to server for authentication then call props.onRegistration(username);
         }
-        props.onRegistration(username);
     };
 
     return (
@@ -98,7 +109,7 @@ export function RegistrationView(props) {
                                             value={email} 
                                             onChange={e => setEmail(e.target.value)} 
                                             placeholder="Enter your email"
-                                            required
+                                           
                                         />
                                         {emailErr && <p>{emailErr}</p>}
                                     </Form.Group>
@@ -126,5 +137,10 @@ export function RegistrationView(props) {
 }
 
 RegistrationView.propTypes = {
-    onRegistration: PropTypes.func.isRequired
+    register: PropTypes.shape({
+        Username: PropTypes.string.isRequired,
+        Password: PropTypes.string.isRequired,
+        Email:  PropTypes.string.isRequired,
+        Birthday:  PropTypes.string.isRequired
+    })
 };
