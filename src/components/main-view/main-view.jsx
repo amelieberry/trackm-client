@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes, useParams, useNavigate } from '
 
 import { Row, Col, Card } from 'react-bootstrap';
 
+import { NavbarView } from '../navbar/navbar';
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
@@ -14,7 +15,6 @@ import './main-view.scss';
 
 const MovieRender = (object) => {
     const movieId = useParams().movieID;
-    const navigate = useNavigate();
     const found = object.movies.find(movieObj => movieObj._id === movieId);
     return <MovieView movie={found} />
 }
@@ -52,13 +52,6 @@ export class MainView extends React.Component {
             this.getMovies(accessToken);
         }
     }
-
-    // // update state of selectedMovie to the movie that was clicked
-    // setSelectedMovie(newSelectedMovie) {
-    //     this.setState({
-    //         selectedMovie: newSelectedMovie
-    //     });
-    // }
 
     // update user property in state to the successfully logged-in user
     onLoggedIn(authData) {
@@ -109,6 +102,7 @@ export class MainView extends React.Component {
         // if a movie was selected, return view of selected movie, otherwise, return the list of movie cards
         return (
             <Router>
+                <NavbarView />
                 <Row className="main-view justify-content-md-center">
                     <Routes>
                         <Route exact path="/" element={(
@@ -137,7 +131,6 @@ export class MainView extends React.Component {
                             </Col>
                         }} />
                     </Routes>
-
                 </Row>
             </Router>
 
