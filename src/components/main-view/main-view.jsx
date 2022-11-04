@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
-import { BrowserRouter as Router, Route, Routes, useParams, Redirect, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useParams, Redirect } from 'react-router-dom';
 
-import { Row, Col, Card } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 import { NavbarView } from '../navbar/navbar';
 import { RegistrationView } from '../registration-view/registration-view';
@@ -89,8 +89,7 @@ export class MainView extends React.Component {
 
     render() {
         const { movies, user } = this.state;
-        // if user is not registered, render RegistrationView
-        // if (!register) return <RegistrationView onRegistration={(register) => this.onRegistration(register)} />;
+
         return (
             <Router>
                 <NavbarView user={user} />
@@ -98,21 +97,22 @@ export class MainView extends React.Component {
                     <Routes>
                         <Route path="/" element={(
                             <Col>
-                                {(!user) ? 
+                                {(!user) ?
                                     <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                                     :
                                     (movies.length === 0) ?
-                                    <div className="main-view" />
-                                    :
-                                    <Col className="card-columns">
-                                        {movies.map(movie => (
-                                            <MovieCard key={movie._id} movie={movie} />
-                                        ))}
-                                    </Col> 
+                                        <div className="main-view" />
+                                        :
+                                        <Col className="card-columns">
+                                            {movies.map(movie => (
+                                                <MovieCard key={movie._id} movie={movie} />
+                                            ))}
+                                        </Col>
                                 }
                             </Col>
                         )} />
-                        <Route path="/register" element={
+
+                        {/* <Route path="/register" element={
                             <Row>
                                 {(user) ? 
                                     <Redirect to="/" />
@@ -122,21 +122,39 @@ export class MainView extends React.Component {
                                     </Col>
                                 }
                             </Row>
-                        } />
+                        } /> */}
+
                         <Route path="/movies/:movieID" element={(
                             <MovieRender movies={movies}></MovieRender>
                         )} />
 
-                        <Route path="/genres/:name" render={() => {
+                        {/* <Route path="/genres/:name" render={() => {
                             return <GenreView />
-                        }} />
+                        }} /> */}
 
-                        <Route path="/directors/:name" render={({ match }) => {
-                            if (movies.length === 0) return <div className="main-view" />;
-                            return <Col md={8}>
+                        {/* <Route path="/directors/:name" element={() => {
+                            <Col>
+                             {(movies.length === 0) ?
+                                    <div className="main-view" />
+                            : 
+                            <Col md={8}>
                                 <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} />
                             </Col>
-                        }} />
+                            }
+                        </Col>
+                        }} /> */}
+
+                        <Route path={`/users/${user}`} element={(
+                            <Row>
+                                {(!user) ?
+                                    <Redirect to="/" />
+                                    :
+                                    <Col>
+                                        <ProfileView />
+                                    </Col>
+                                }
+                            </Row>
+                        )} />
                     </Routes>
                 </Row>
             </Router>
