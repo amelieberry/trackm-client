@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { BrowserRouter as Router, Route, Routes, useParams, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useParams, redirect } from 'react-router-dom';
 
 import { Row, Col } from 'react-bootstrap';
 
@@ -21,9 +21,9 @@ import './main-view.scss';
 export function MainView() {
     const [ movies, setMovies ] = useState([]);
     const [ user, setUser ] = useState(null);
+
     // get movies from API on logged-in
     const getMovies = async (token) => {
-        console.log('getting movies');
         try {
             const response = await axios.get("https://trackm-app.herokuapp.com/movies", {
                 headers: { Authorization: `Bearer ${token}` }
@@ -63,9 +63,9 @@ export function MainView() {
     };
 
     // update user property in state to the successfully registered user
-    const onRegistration = (register) => {
-            setUser(register);
-    };
+    // const onRegistration = (register) => {
+    //         setUser(register);
+    // };
 
     
     const MovieRender = () => {
@@ -77,7 +77,6 @@ export function MainView() {
     // const onChange = ({ target }) => setMovies(target);
 
     return(
-        // const { movies, user } = this.state;
         <Router>
             <NavbarView user={user} />
             <Row className="main-view justify-content-md-center">
@@ -88,28 +87,28 @@ export function MainView() {
                                 <LoginView onLoggedIn={user => onLoggedIn(user)} />
                                 :
                                 (movies.length === 0) ?
-                                    <div className="main-view" />
-                                    :
-                                    <Col className="card-columns">
-                                        {movies.map(movie => (
-                                            <MovieCard key={movie._id} movie={movie} />
-                                        ))}
-                                    </Col>
+                                <div className="main-view" />
+                                :
+                                <Col className="card-columns">
+                                    {movies.map(movie => (
+                                        <MovieCard key={movie._id} movie={movie} />
+                                    ))}
+                                </Col>
                             }
                         </Col>
                     )} />
 
-                    {/* <Route path="/register" element={
+                    <Route path="/register" element={
                         <Row>
                             {(user) ? 
-                                <Redirect to="/" />
+                                redirect("/")
                                 :
                                 <Col>
                                     <RegistrationView />
                                 </Col>
                             }
                         </Row>
-                    } /> */}
+                    } />
 
                     <Route path="/movies/:movieID" element={
                         (movies.length === 0) ?
@@ -118,36 +117,31 @@ export function MainView() {
                         <MovieRender/>
                     } />
 
-                    {/* <Route path="/genres/:name" element={
-                        movies.length === 0) ?
+                    <Route path="/genres/:name" element={
+                        (movies.length === 0) ?
                         <div className="main-view" />
                         :
                         <GenreView />
-                    } /> */}
+                    } />
 
-                    {/* <Route path="/directors/:name" element={() => {
-                        <Col>
-                            {(movies.length === 0) ?
-                                <div className="main-view" />
+                    <Route path="/directors/:name" element={
+                        (movies.length === 0) ?
+                            <div className="main-view" />
                         : 
-                        <Col md={8}>
-                            <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} />
-                        </Col>
-                        }
-                    </Col>
-                    }} /> */}
+                        <DirectorView />
+                    } />
 
-                    <Route path={`/users/${user}`} element={(
+                    <Route path={`/users/${user}`} element={
                         <Row>
                             {(!user) ?
-                                <Redirect to="/" />
-                                :
-                                <Col>
-                                    <ProfileView />
-                                </Col>
+                                redirect("/")
+                            :
+                            <Col>
+                                <ProfileView />
+                            </Col>
                             }
                         </Row>
-                    )} />
+                    } />
                 </Routes>
             </Row>
         </Router>
