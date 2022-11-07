@@ -2,9 +2,13 @@ import React from "react";
 
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 
+import { useNavigate } from "react-router-dom";
+
 import './navbar.scss';
 
 export function NavbarView({user}) {
+
+    const navigate = useNavigate();
 
     const onLoggedOut = () => {
         localStorage.clear();
@@ -25,7 +29,7 @@ export function NavbarView({user}) {
     return (
         <Navbar className="navbar-view container-fluid" fixed="top" bg="dark" variant="dark">
             <Container>
-                <Navbar.Brand>Track'M</Navbar.Brand>
+                <Navbar.Brand onClick={() => navigate("/")}>Track'M</Navbar.Brand>
                 <Nav className="me-auto">
                     {isAuth() && (
                         <Nav.Link href={`/users/${user}`}>{user}</Nav.Link>
