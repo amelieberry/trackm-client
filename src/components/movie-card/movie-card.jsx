@@ -7,9 +7,7 @@ import { Link } from "react-router-dom";
 import './movie-card.scss';
 
 
-export class MovieCard extends React.Component {
-    render() {
-        const { movie } = this.props;
+export function MovieCard({movie}) {
         return (
                 <Card
                     bg="dark"
@@ -32,7 +30,6 @@ export class MovieCard extends React.Component {
                     </Card.Body>
                 </Card>
         );
-    }
 }
 
 MovieCard.propTypes = {

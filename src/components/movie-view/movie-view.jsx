@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Button } from 'react-bootstrap';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './movie-view.scss';
 
-export class MovieView extends React.Component {
+export function MovieView({movie}) {
 
-    render() {
-        const { movie, onBackClick } = this.props;
+    const navigate = useNavigate();
+
         return (
             <div xl={8} className="movie-view">
                 <Row className="movie-title text-center" lg={10}>
@@ -52,12 +52,11 @@ export class MovieView extends React.Component {
                             </Link>
                             
                         </div>
-                        <Button className='movie-details' variant="secondary" onClick={() => { onBackClick(null); }}>Back</Button>
+                        <Button className='movie-details' variant="secondary" onClick={() => navigate(-1)}>Back</Button>
                     </Col>
                 </Row>
             </div>
         );
-    }
 }
 
 MovieView.propTypes = {
