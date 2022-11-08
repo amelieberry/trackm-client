@@ -9,7 +9,7 @@ import { NavbarView } from '../navbar/navbar';
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
+import { MovieView, MovieRender } from '../movie-view/movie-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 import { ProfileView } from '../profile-view/profile-view';
@@ -18,7 +18,7 @@ import './main-view.scss';
 
 
 // Create mainView using React.Component and expose it
-export function MainView() {
+export function MainView({movie, director}) {
     const [ movies, setMovies ] = useState([]);
     const [ user, setUser ] = useState(null);
 
@@ -41,7 +41,6 @@ export function MainView() {
                 setUser(localStorage.getItem('user'));           
         }
        getMovies(accessToken)
-        
     }, []);
 
     // update user property in state to the successfully logged-in user
@@ -67,12 +66,7 @@ export function MainView() {
     //         setUser(register);
     // };
 
-    
-    const MovieRender = () => {
-        const movieId = useParams().movieID;
-        const found = movies.find(movieObj => movieObj._id === movieId);
-        return <MovieView movie={found} />
-    };
+
 
     // const onChange = ({ target }) => setMovies(target);
 
@@ -99,22 +93,20 @@ export function MainView() {
                     )} />
 
                     <Route path="/register" element={
-                        <Row>
+                        <Col>
                             {(user) ? 
                                 redirect("/")
                                 :
-                                <Col>
-                                    <RegistrationView />
-                                </Col>
+                                <RegistrationView />
                             }
-                        </Row>
+                        </Col>
                     } />
 
                     <Route path="/movies/:movieID" element={
                         (movies.length === 0) ?
                         <div className="main-view" />
                         :
-                        <MovieRender/>
+                        <MovieView movies={movies} />
                     } />
 
                     <Route path="/genres/:name" element={
@@ -137,7 +129,7 @@ export function MainView() {
                                 redirect("/")
                             :
                             <Col>
-                                <ProfileView />
+                                <ProfileView movies={movies}/>
                             </Col>
                             }
                         </Row>
