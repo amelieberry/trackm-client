@@ -52,7 +52,7 @@ export function RegistrationView() {
         if (isReq) {
             try {
                 console.log(username, password, email, birthday);
-                const response = await axios.post('https://trackm-app.herokuapp.com/users', {
+                const response = await axios.post('https://trackm-app.herokuapp.com/users/', {
                     Username: username,
                     Password: password,
                     Email: email,
@@ -69,68 +69,66 @@ export function RegistrationView() {
 
     return (
         <Container className="registration-container d-flex flex-column justify-content-center align-items-center">
-            <Row>
+            <Row className="title-row">
                 <h1 className='registration-title'>Registration</h1>
             </Row>
-            <Row>
-                <Col>
-                    <CardGroup>
-                        <Card bg="dark">
-                            <Card.Body>
-                                <Form>
-                                    <Form.Group>
-                                        <Form.Label>Username: </Form.Label>
-                                        <Form.Control 
-                                            type="text" 
-                                            value={username} 
-                                            onChange={e => setUsername(e.target.value)} 
-                                            placeholder="Enter your username"
-                                            required
-                                        />
-                                        {usernameErr && <p>{usernameErr}</p>}
-                                    </Form.Group>
+            <Row className="form-row">
+                <CardGroup>
+                    <Card bg="dark">
+                        <Card.Body>
+                            <Form>
+                                <Form.Group>
+                                    <Form.Label>Username: </Form.Label>
+                                    <Form.Control 
+                                        type="text" 
+                                        value={username} 
+                                        onChange={e => setUsername(e.target.value)} 
+                                        placeholder="Enter your username"
+                                        required
+                                    />
+                                    {usernameErr && <p>{usernameErr}</p>}
+                                </Form.Group>
 
-                                    <Form.Group>
-                                        <Form.Label>Password: </Form.Label>
-                                        <Form.Control 
-                                            type="password" 
-                                            value={password} 
-                                            onChange={e => setPassword(e.target.value)} 
-                                            placeholder="Enter your password"
-                                            required
-                                        />
-                                        {passwordErr && <p>{passwordErr}</p>}
-                                    </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Password: </Form.Label>
+                                    <Form.Control 
+                                        type="password" 
+                                        value={password} 
+                                        onChange={e => setPassword(e.target.value)} 
+                                        placeholder="Enter your password"
+                                        required
+                                    />
+                                    {passwordErr && <p>{passwordErr}</p>}
+                                </Form.Group>
 
-                                    <Form.Group>
-                                        <Form.Label>Email: </Form.Label>
-                                        <Form.Control 
-                                            type="email" 
-                                            value={email} 
-                                            onChange={e => setEmail(e.target.value)} 
-                                            placeholder="Enter your email"
-                                           
-                                        />
-                                        {emailErr && <p>{emailErr}</p>}
-                                    </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Email: </Form.Label>
+                                    <Form.Control 
+                                        type="email" 
+                                        value={email} 
+                                        onChange={e => setEmail(e.target.value)} 
+                                        placeholder="Enter your email"
+                                        
+                                    />
+                                    {emailErr && <p>{emailErr}</p>}
+                                </Form.Group>
 
-                                    <Form.Group>
-                                        <Form.Label>Birthday: </Form.Label>
-                                        <Form.Control 
-                                            type="date" 
-                                            value={birthday} 
-                                            onChange={e => setBirthday(e.target.value)}
-                                            placeholder="Enter your date of birth"
-                                            required
-                                        />
-                                    </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Birthday: </Form.Label>
+                                    <Form.Control 
+                                        type="date" 
+                                        value={birthday} 
+                                        onChange={e => setBirthday(e.target.value)}
+                                        placeholder="Enter your date of birth"
+                                        required
+                                    />
+                                </Form.Group>
 
-                                    <Button className="button-register" variant="primary" type="submit" onClick={handleSubmit}>Register</Button>
-                                </Form>
-                            </Card.Body>
-                        </Card>
-                    </CardGroup>
-                </Col>
+                                <Button className="button-register text-center" variant="primary" type="submit" onClick={handleSubmit}>Register</Button>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                </CardGroup>
             </Row>
         </Container>
     )
