@@ -7,14 +7,12 @@ import { MainView } from './components/main-view/main-view';
 import './index.scss';
 
 // main component
-class TrackmApplication extends React.Component {
-    render() {
-        return (
-            <Container>
-                <MainView />
-            </Container>
-        );
-    }
+function TrackmApplication() {
+    return (
+        <Container>
+            <MainView />
+        </Container>
+    );
 }
 
 // Finds the root of the app
