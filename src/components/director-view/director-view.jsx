@@ -4,9 +4,11 @@ import { Row, Col, Button, Container } from 'react-bootstrap';
 
 import { useNavigate } from 'react-router-dom';
 
+import { MovieCard } from '../movie-card/movie-card';
+
 import './director-view.scss';
 
-export function DirectorView({director}) {
+export function DirectorView({director, directorMovies}) {
 
     const navigate = useNavigate();
 
@@ -15,7 +17,7 @@ export function DirectorView({director}) {
             <h1>Hello</h1>
             <Row className="director-name text-center" lg={10}>
                 <Col>
-                    <h2 className="value">{director.Name}</h2>
+                    <h2 className="value">{director.Director.Name}</h2>
                 </Col>
             </Row>
             <Row className="movie-details">
@@ -34,6 +36,13 @@ export function DirectorView({director}) {
                     </div>
                     <div className="director-details">
                         <h4 className="label">Movies directed by {director.Name}: </h4>
+                        <Row>
+                            <Col className="card-columns">
+                                {directorMovies.map(movie => (
+                                    <MovieCard key={movie._id} movie={movie} />
+                                ))}
+                            </Col>
+                        </Row>
                     </div>
                     <Button className='movie-details' variant="secondary" onClick={() => navigate(-1)}>Back</Button>
                 </Col>
