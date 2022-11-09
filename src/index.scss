@@ -1,5 +1,9 @@
-$color: steelblue;
+$color: #fff;
+$background-color: #000;
 
-.trackm {
+html body, .app-container {
     color: $color;
+    background: $background-color;
+    // min-height: 100vh;
 }
+
