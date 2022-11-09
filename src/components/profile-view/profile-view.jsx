@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Col, Row } from 'react-bootstrap';
-
 import axios from 'axios';
+
+import { Container, Col, Row, CardGroup, Card, Button } from 'react-bootstrap';
 
 import { FavoriteMovies } from './favorite-movies';
 import { UpdateUser } from './update-user';
@@ -57,10 +57,24 @@ export function ProfileView({ movies }) {
         }
     }
 
+    const handleDelete = async () => {
+        try {
+            const response = await axios.delete(`https://trackm-app.herokuapp.com/users/${currentUser}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            alert('Your account was permanently deleted')
+            localStorage.clear();
+            setUser(response.data);
+            window.open('/', 'self')
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
-        getUser();      
+        getUser();
     }, []);
-    
+
     useEffect(() => {
         setFavoriteMovies(movies.filter((movie) => user.FavoriteMovies.includes(movie._id)));
     }, [user])
@@ -85,6 +99,16 @@ export function ProfileView({ movies }) {
                         }
                     </Row>
                     <UpdateUser handleSubmit={handleSubmit} user={user} />
+                    <Row>
+                        <h2 className="update-title">Delete User Info</h2>
+                    </Row>
+                    <CardGroup className="user-forms">
+                        <Card bg="dark">
+                            <Card.Body className="user-input">
+                                <Button className="button-forms" variant="danger" onClick={() => { handleDelete() }} >Delete Account</Button>
+                            </Card.Body>
+                        </Card>
+                    </CardGroup>
                 </div>
             }
         </Container>
