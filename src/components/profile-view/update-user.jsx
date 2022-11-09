@@ -7,13 +7,13 @@ export function UpdateUser({handleSubmit, user}) {
     const [ newPassword, setNewPassword ] = useState('');
     const [ email, setEmail ] = useState('');
     return (
-        <div className="d-flex flex-column justify-content-center align-items-center">
+        <div className="user-forms d-flex flex-column justify-content-center align-items-center">
             <Row>
             <h2 className="update-title">Update User Info</h2>
             </Row>
-            <CardGroup>
+            <CardGroup className="user-forms">
                 <Card bg="dark">
-                    <Card.Body>
+                    <Card.Body className="user-input">
                         <Form className="profile-form" onSubmit={(e) => handleSubmit(e, username, newPassword, email, user)}>
                             <Form.Group>
                                 <Form.Label>Username: </Form.Label>
@@ -46,7 +46,7 @@ export function UpdateUser({handleSubmit, user}) {
                                 />
                             </Form.Group>
 
-                            <Button className="button-update" variant="primary" type="submit" >Update Info</Button>
+                            <Button className="button-forms" variant="primary" type="submit" >Update Info</Button>
                         </Form>
                     </Card.Body>
                 </Card>
