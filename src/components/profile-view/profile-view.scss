@@ -1,12 +1,33 @@
-.button-update {
-    margin: 20px auto;
+.unfavorite-button {
     width: 100%;
 }
 
 .form-control {
-    margin: 3px 0;
+    margin: 3px auto;
 }
 
 .update-title {
     margin-bottom: 20px;
 }
+
+.user-forms {
+    width: 100%;
+}
+
+.user-input {
+    width: 80%;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 400px) {
+    .user-input {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .user-input {
+        width: 60%;
+    }
+}
+
