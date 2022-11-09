@@ -10,11 +10,10 @@ import axios from 'axios';
 import { useEffect } from 'react';
 
 export function ProfileView({ movies, onUpdatedUser }) {
-    const [favoriteMovies, setFavoriteMovies] = useState([]);
+    const [favoriteMovies, setFavoriteMovies] = useState();
     const [user, setUser] = useState();
     const token = localStorage.getItem("token");
     const currentUser = localStorage.getItem("user");
-
 
     const getUser = async () => {
         try {
@@ -22,16 +21,10 @@ export function ProfileView({ movies, onUpdatedUser }) {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setUser(response.data);
-            console.log(response.data);
-            setFavoriteMovies(movies.filter((movie) => response.data.FavoriteMovies.includes(movie._id)))
         } catch (error) {
             console.log(error, 'could not GET User');
         }
     }
-
-    useEffect(() => {
-        getUser()
-    }, []);
 
     // const onUpdatedUser()
 
@@ -59,11 +52,21 @@ export function ProfileView({ movies, onUpdatedUser }) {
             const response = await axios.put(`https://trackm-app.herokuapp.com/users/${user.Username}`, updateObject, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-            console.log(response.data)
+            console.log(response.data);
         } catch (error) {
             console.log(error)
         }
     }
+
+
+    useEffect(() => {
+        getUser();
+        
+    }, []);
+    
+    useEffect(() => {
+        setFavoriteMovies(movies.filter((movie) => user.FavoriteMovies.includes(movie._id)));
+    }, [user])
 
     return (
         <Container>
