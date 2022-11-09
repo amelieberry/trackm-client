@@ -40,8 +40,10 @@ export function MainView({ }) {
         if (accessToken !== null) {
             setUser(localStorage.getItem('user'));
         }
-        getMovies(accessToken)
-    }, []);
+        if(user && movies.length === 0){
+            getMovies(accessToken)
+        }
+    });
 
     // update user property in state to the successfully logged-in user
     const onLoggedIn = (authData) => {
@@ -64,7 +66,9 @@ export function MainView({ }) {
                             <LoginView onLoggedIn={user => onLoggedIn(user)} />
                             :
                             (movies.length === 0) ?
-                                <div className="main-view" />
+                                <div className="main-view">
+                                    <h2>Loading, please wait</h2>
+                                </div>
                                 :
                                 <Col className="card-columns">
                                     {movies.map(movie => (
