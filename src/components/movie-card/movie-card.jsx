@@ -19,12 +19,11 @@ export function MovieCard({movie}) {
         const response = await axios.post(`https://trackm-app.herokuapp.com/users/${currentUser}/movies/${movieId}`,{} ,{
                 headers: { Authorization: `Bearer ${token}` }
             });
-            // setUser(response.data);
-            // setFavoriteMovies(movies.filter((movie) => response.data.FavoriteMovies.includes(movie._id)))
         } catch (error) {
             console.error(error, 'Could not add movie to favorites');
         }
     }
+    
     return (
         <Card bg="dark" style={{ margin: '10px' }}>
             <Card.Img crossOrigin="anonymous" variant="top" src={movie.ImagePath} />
