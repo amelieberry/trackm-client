@@ -29,7 +29,7 @@ export function NavbarView({ user }) {
     return (
         <Navbar className="navbar-view container-fluid" fixed="top" bg="dark" variant="dark">
             <Container>
-                <Navbar.Brand onClick={() => navigate("/")}>Track'M</Navbar.Brand>
+                <Navbar.Brand className="nav-logo" onClick={() => navigate("/")}>Track'M</Navbar.Brand>
                 <Nav className="me-auto">
                     {isAuth() && (
                         <Nav.Link href={`/users/${user}`}>{user}</Nav.Link>
