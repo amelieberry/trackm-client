@@ -61,22 +61,13 @@ export function MainView({movie, director}) {
         setUser(null);
     };
 
-    // update user property in state to the successfully registered user
-    // const onRegistration = (register) => {
-    //         setUser(register);
-    // };
-
-
-
-    // const onChange = ({ target }) => setMovies(target);
-
     return(
         <Router>
             <NavbarView user={user} />
             <Row className="main-view justify-content-md-center">
                 <Routes>
                     <Route path="/" element={(
-                        <Col>
+                        <div className="container-fluid">
                             {(!user) ?
                                 <LoginView onLoggedIn={user => onLoggedIn(user)} />
                                 :
@@ -89,7 +80,7 @@ export function MainView({movie, director}) {
                                     ))}
                                 </Col>
                             }
-                        </Col>
+                        </div>
                     )} />
 
                     <Route path="/register" element={
