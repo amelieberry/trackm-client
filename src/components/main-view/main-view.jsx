@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { BrowserRouter as Router, Route, Routes, useParams, redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, redirect } from 'react-router-dom';
 
 import { Row, Col } from 'react-bootstrap';
 
@@ -18,9 +18,9 @@ import './main-view.scss';
 
 
 // Create mainView using React.Component and expose it
-export function MainView({}) {
-    const [ movies, setMovies ] = useState([]);
-    const [ user, setUser ] = useState(null);
+export function MainView({ }) {
+    const [movies, setMovies] = useState([]);
+    const [user, setUser] = useState(null);
 
     // get movies from API on logged-in
     const getMovies = async (token) => {
@@ -38,9 +38,9 @@ export function MainView({}) {
     useEffect(() => {
         let accessToken = localStorage.getItem('token');
         if (accessToken !== null) {
-                setUser(localStorage.getItem('user'));           
+            setUser(localStorage.getItem('user'));
         }
-       getMovies(accessToken)
+        getMovies(accessToken)
     }, []);
 
     // update user property in state to the successfully logged-in user
@@ -54,17 +54,16 @@ export function MainView({}) {
         getMovies(authData.token);
     }
 
-    return(
+    return (
         <Router>
             <NavbarView user={user} />
             <Row className="main-view">
                 <Routes>
                     <Route path="/" element={(
-                        <div className="container-fluid">
-                            {(!user) ?
-                                <LoginView onLoggedIn={user => onLoggedIn(user)} />
-                                :
-                                (movies.length === 0) ?
+                        (!user) ?
+                            <LoginView onLoggedIn={user => onLoggedIn(user)} />
+                            :
+                            (movies.length === 0) ?
                                 <div className="main-view" />
                                 :
                                 <Col className="card-columns">
@@ -72,51 +71,41 @@ export function MainView({}) {
                                         <MovieCard key={movie._id} movie={movie} />
                                     ))}
                                 </Col>
-                            }
-                        </div>
                     )} />
 
                     <Route path="/register" element={
-                        <Col>
-                            {(user) ? 
-                                redirect("/")
-                                :
-                                <RegistrationView />
-                            }
-                        </Col>
+                        (user) ?
+                            redirect("/")
+                            :
+                            <RegistrationView />
                     } />
 
                     <Route path="/movies/:movieID" element={
                         (movies.length === 0) ?
-                        <div className="main-view" />
-                        :
-                        <MovieView movies={movies} />
+                            <div className="main-view" />
+                            :
+                            <MovieView movies={movies} />
                     } />
 
                     <Route path="/genres/:name" element={
                         (movies.length === 0) ?
-                        <div className="main-view" />
-                        :
-                        <GenreView />
+                            <div className="main-view" />
+                            :
+                            <GenreView />
                     } />
 
                     <Route path="/directors/:name" element={
                         (movies.length === 0) ?
                             <div className="main-view" />
-                        : 
-                        <DirectorView />
+                            :
+                            <DirectorView />
                     } />
 
                     <Route path={`/users/${user}`} element={
-                        <Row>
-                            {(!user) ?
-                                redirect("/")
+                        (!user) ?
+                            redirect("/")
                             :
-                            <Col>
-                                <ProfileView movies={movies}/>
-                            </Col>
-                            }
-                        </Row>
+                            <ProfileView movies={movies} />
                     } />
                 </Routes>
             </Row>

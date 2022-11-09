@@ -19,12 +19,12 @@ export function FavoriteMovies({ favoriteMoviesList, removeFav }) {
                                 <Link to={`/movies/${movies._id}`}>
                                     <Card.Title>{movies.Title}</Card.Title>
                                 </Link>
-                                    <Button className="unfavorite-button" variant="secondary" onClick={() => removeFav(movies._id)}>Unfavorite</Button>
+                                <Button className="unfavorite-button" variant="secondary" onClick={() => removeFav(movies._id)}>Unfavorite</Button>
                             </Card.Body>
                         </Card>
                     ))}
                 </Col>
             </Row>
-        </div>     
+        </div>
     )
 }

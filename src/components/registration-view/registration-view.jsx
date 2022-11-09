@@ -6,20 +6,20 @@ import './registration-view.scss';
 import axios from 'axios';
 
 export function RegistrationView() {
-    const [ username, setUsername ] = useState('');
-    const [ password, setPassword ] = useState('');
-    const [ email, setEmail ] = useState('');
-    const [ birthday, setBirthday ] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [birthday, setBirthday] = useState('');
 
     // Declare hook for each input
-    const [ usernameErr, setUsernameErr ] = useState('');
-    const [ passwordErr, setPasswordErr ] = useState('');
-    const [ emailErr, setEmailErr ] = useState('');
+    const [usernameErr, setUsernameErr] = useState('');
+    const [passwordErr, setPasswordErr] = useState('');
+    const [emailErr, setEmailErr] = useState('');
 
     // validate user input
     const validate = () => {
         let isReq = true;
-        if(!username) {
+        if (!username) {
             setUsernameErr('Username Required');
             isReq = false;
         } else if (username.length < 3) {
@@ -63,7 +63,7 @@ export function RegistrationView() {
             } catch (error) {
                 console.error(error, 'error registering user');
             }
-        // send request to server for authentication then call props.onRegistration(username);
+            // send request to server for authentication then call props.onRegistration(username);
         }
     };
 
@@ -79,10 +79,10 @@ export function RegistrationView() {
                             <Form>
                                 <Form.Group>
                                     <Form.Label>Username: </Form.Label>
-                                    <Form.Control 
-                                        type="text" 
-                                        value={username} 
-                                        onChange={e => setUsername(e.target.value)} 
+                                    <Form.Control
+                                        type="text"
+                                        value={username}
+                                        onChange={e => setUsername(e.target.value)}
                                         placeholder="Enter your username"
                                         required
                                     />
@@ -91,10 +91,10 @@ export function RegistrationView() {
 
                                 <Form.Group>
                                     <Form.Label>Password: </Form.Label>
-                                    <Form.Control 
-                                        type="password" 
-                                        value={password} 
-                                        onChange={e => setPassword(e.target.value)} 
+                                    <Form.Control
+                                        type="password"
+                                        value={password}
+                                        onChange={e => setPassword(e.target.value)}
                                         placeholder="Enter your password"
                                         required
                                     />
@@ -103,21 +103,21 @@ export function RegistrationView() {
 
                                 <Form.Group>
                                     <Form.Label>Email: </Form.Label>
-                                    <Form.Control 
-                                        type="email" 
-                                        value={email} 
-                                        onChange={e => setEmail(e.target.value)} 
+                                    <Form.Control
+                                        type="email"
+                                        value={email}
+                                        onChange={e => setEmail(e.target.value)}
                                         placeholder="Enter your email"
-                                        
+
                                     />
                                     {emailErr && <p>{emailErr}</p>}
                                 </Form.Group>
 
                                 <Form.Group>
                                     <Form.Label>Birthday: </Form.Label>
-                                    <Form.Control 
-                                        type="date" 
-                                        value={birthday} 
+                                    <Form.Control
+                                        type="date"
+                                        value={birthday}
                                         onChange={e => setBirthday(e.target.value)}
                                         placeholder="Enter your date of birth"
                                         required
@@ -138,7 +138,7 @@ RegistrationView.propTypes = {
     register: PropTypes.shape({
         Username: PropTypes.string.isRequired,
         Password: PropTypes.string.isRequired,
-        Email:  PropTypes.string.isRequired,
-        Birthday:  PropTypes.string.isRequired
+        Email: PropTypes.string.isRequired,
+        Birthday: PropTypes.string.isRequired
     })
 };

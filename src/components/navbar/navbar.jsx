@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import './navbar.scss';
 
-export function NavbarView({user}) {
+export function NavbarView({ user }) {
 
     const navigate = useNavigate();
 
@@ -15,7 +15,7 @@ export function NavbarView({user}) {
         window.open("/", "_self")
     }
 
-    const isAuth= () => {
+    const isAuth = () => {
         if (typeof window == "undefined") {
             return false;
         }
