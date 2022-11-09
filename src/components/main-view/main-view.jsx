@@ -18,7 +18,7 @@ import './main-view.scss';
 
 
 // Create mainView using React.Component and expose it
-export function MainView({movie, director}) {
+export function MainView({}) {
     const [ movies, setMovies ] = useState([]);
     const [ user, setUser ] = useState(null);
 
@@ -54,17 +54,10 @@ export function MainView({movie, director}) {
         getMovies(authData.token);
     }
 
-    // log out
-    const onLoggedOut = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        setUser(null);
-    };
-
     return(
         <Router>
             <NavbarView user={user} />
-            <Row className="main-view justify-content-md-center">
+            <Row className="main-view">
                 <Routes>
                     <Route path="/" element={(
                         <div className="container-fluid">
