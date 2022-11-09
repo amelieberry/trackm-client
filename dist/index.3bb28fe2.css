@@ -1,0 +1,39 @@
+.button-register {
+  margin: 10px 0;
+}
+
+.registration-container {
+  height: 100vh;
+}
+
+.registration-title {
+  margin-bottom: 20px;
+}
+
+.button-login {
+  margin: 15px 0;
+}
+
+.login-container {
+  height: 100vh;
+}
+
+.login-title {
+  margin-bottom: 20px;
+}
+
+
+
+.movie-title, .movie-details {
+  margin: 10px 0;
+}
+
+
+
+html body, .app-container {
+  color: #ddd9dd;
+  min-height: 100vh;
+  background: #000;
+}
+
+/*# sourceMappingURL=index.3bb28fe2.css.map */
