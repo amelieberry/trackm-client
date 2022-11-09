@@ -19,9 +19,7 @@ export function FavoriteMovies({ favoriteMoviesList, removeFav }) {
                                 <Link to={`/movies/${movies._id}`}>
                                     <Card.Title>{movies.Title}</Card.Title>
                                 </Link>
-                                <Row className="d-flex justify-content-end align-items-center">
-                                    <Button variant="secondary" onClick={() => removeFav(movies._id)}>Unfavorite</Button>
-                                </Row>
+                                    <Button className="unfavorite-button" variant="secondary" onClick={() => removeFav(movies._id)}>Unfavorite</Button>
                             </Card.Body>
                         </Card>
                     ))}
