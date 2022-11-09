@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 
+import axios from 'axios';
 
 import { FavoriteMovies } from './favorite-movies';
 import { UpdateUser } from './update-user';
 
 import './profile-view.scss';
-import axios from 'axios';
-import { useEffect } from 'react';
 
-export function ProfileView({ movies, onUpdatedUser }) {
+
+export function ProfileView({ movies }) {
     const [favoriteMovies, setFavoriteMovies] = useState();
     const [user, setUser] = useState();
     const token = localStorage.getItem("token");
@@ -48,7 +48,6 @@ export function ProfileView({ movies, onUpdatedUser }) {
                 Password: newPassword ? newPassword : user.Password,
                 Email: email ? email : user.Email
             };
-            console.log(updateObject);
             const response = await axios.put(`https://trackm-app.herokuapp.com/users/${user.Username}`, updateObject, {
                 headers: { Authorization: `Bearer ${token}` },
             });
@@ -58,10 +57,8 @@ export function ProfileView({ movies, onUpdatedUser }) {
         }
     }
 
-
     useEffect(() => {
-        getUser();
-        
+        getUser();      
     }, []);
     
     useEffect(() => {
@@ -77,11 +74,7 @@ export function ProfileView({ movies, onUpdatedUser }) {
                     <h1 className='profile-username'>{user.Username}'s Profile</h1>
                     <Row>
                         <Col>
-                            <h5>Email:</h5>
-                            <p>{user.Email}</p>
-                        </Col>
-                        <Col>
-                            <p>Birthday: {user.Birthday}</p>
+                            <p>Email: {user.Email}</p>
                         </Col>
                     </Row>
                     <Row className="card-columns">
