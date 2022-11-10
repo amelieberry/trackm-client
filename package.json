@@ -11,12 +11,12 @@
     "type": "git",
     "url": "git+https://github.com/amelieberry/trackm-client.git"
   },
-  "author": "",
+  "author": "amelieberry",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/amelieberry/trackm-client/issues"
   },
-  "homepage": "https://github.com/amelieberry/trackm-client#readme",
+  "homepage": "https://amelieberry.github.io/trackm-client",
   "dependencies": {
     "axios": "^1.1.3",
     "prop-types": "^15.8.1",
