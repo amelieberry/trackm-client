@@ -1,3 +1,25 @@
+.favorite-button {
+  width: 100%;
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+  .card-columns {
+    column-count: 1 !important;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .card-columns {
+    column-count: 2 !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .card-columns {
+    column-count: 3 !important;
+  }
+}
+
 .nav-logo {
   cursor: pointer;
 }
@@ -30,28 +52,6 @@
 
 .movie-title, .movie-details {
   margin: 10px 0;
-}
-
-.favorite-button {
-  width: 100%;
-}
-
-@media (min-width: 576px) and (max-width: 768px) {
-  .card-columns {
-    column-count: 1 !important;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .card-columns {
-    column-count: 2 !important;
-  }
-}
-
-@media (min-width: 992px) {
-  .card-columns {
-    column-count: 3 !important;
-  }
 }
 
 .director-title {
@@ -131,4 +131,4 @@ html body, .app-container {
   background: #000;
 }
 
-/*# sourceMappingURL=index.24987d7b.css.map */
+/*# sourceMappingURL=index.e3f97e84.css.map */
