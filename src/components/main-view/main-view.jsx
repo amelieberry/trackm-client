@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import { connect } from 'react-redux';
+
 import { BrowserRouter as Router, Route, Routes, redirect } from 'react-router-dom';
 
-import { Row, Col } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 
+import { setMovies } from '../../actions/actions';
+
+import MoviesList from '../movies-list/movies-list';
 import { NavbarView } from '../navbar/navbar';
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
-import { MovieCard } from '../movie-card/movie-card';
-import { MovieView, MovieRender } from '../movie-view/movie-view';
+import { MovieView } from '../movie-view/movie-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 import { ProfileView } from '../profile-view/profile-view';
@@ -18,8 +22,9 @@ import './main-view.scss';
 
 
 // Create mainView using React.Component and expose it
-export function MainView({ }) {
-    const [movies, setMovies] = useState([]);
+function MainView(props) {
+    let { movies } = props;
+    // const [movies, setMovies] = useState([]);
     const [user, setUser] = useState(null);
 
     // get movies from API on logged-in
@@ -28,7 +33,7 @@ export function MainView({ }) {
             const response = await axios.get("https://trackm-app.herokuapp.com/movies", {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            setMovies(response.data);
+            props.setMovies(response.data);
         } catch (error) {
             console.log(error);
         }
@@ -56,7 +61,7 @@ export function MainView({ }) {
         getMovies(authData.token);
     }
 
-    return (
+    return (  
         <Router>
             <NavbarView user={user} />
             <Row className="main-view">
@@ -70,11 +75,7 @@ export function MainView({ }) {
                                     <h2>Loading, please wait</h2>
                                 </div>
                                 :
-                                <Col className="card-columns">
-                                    {movies.map(movie => (
-                                        <MovieCard key={movie._id} movie={movie} />
-                                    ))}
-                                </Col>
+                                <MoviesList movies={movies} />                               
                     )} />
 
                     <Route path="/register" element={
@@ -118,4 +119,8 @@ export function MainView({ }) {
     );
 }
 
-//
+let mapStateToProps = state => {
+    return { movies: state.movies }
+}
+
+export default connect(mapStateToProps, { setMovies })(MainView);
