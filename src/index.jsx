@@ -1,22 +1,29 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import Container from 'react-bootstrap/Container';
+import { legacy_createStore as createStore} from 'redux';
+import { Provider } from 'react-redux';
+import { devToolsEnhancer } from 'redux-devtools-extension';
 
-import { MainView } from './components/main-view/main-view';
+import moviesApp from './reducers/reducers';
+
+import MainView from './components/main-view/main-view';
 
 import './index.scss';
+
+const store = createStore(moviesApp, devToolsEnhancer());
 
 // main component
 function TrackmApplication() {
     return (
-        <Container>
-            <MainView />
-        </Container>
+        <Provider store={store}>
+            <Container>
+                <MainView />
+            </Container>
+        </Provider>
     );
 }
 
 // Finds the root of the app
 const container = document.getElementsByClassName('app-container')[0];
-const rootElement = ReactDOM.createRoot(container)
-// Tells React to render the app in the root DOM Element
-rootElement.render(<TrackmApplication />);
+createRoot(container).render(React.createElement(TrackmApplication));
