@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+
+import { setUser } from '../../actions/actions';
 
 import { useNavigate } from 'react-router-dom';
 
-import { Container, Col, Row, CardGroup, Card, Button } from 'react-bootstrap';
+import { Container, Row, CardGroup, Card, Button } from 'react-bootstrap';
 
 import { FavoriteMovies } from './favorite-movies';
 import { UpdateUser } from './update-user';
@@ -11,21 +14,24 @@ import { UpdateUser } from './update-user';
 import './profile-view.scss';
 
 
-export function ProfileView({ movies }) {
+function ProfileView(props) {
+    let { movies, user } = props;
     const [favoriteMovies, setFavoriteMovies] = useState();
-    const [user, setUser] = useState();
+    // const [user, setUser] = useState();
     const token = localStorage.getItem("token");
     const currentUser = localStorage.getItem("user");
 
     const navigate = useNavigate();
 
-
+    // GET the user, set user prop to user object
     const getUser = async () => {
         try {
             const response = await axios.get(`https://trackm-app.herokuapp.com/users/${currentUser}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            setUser(response.data);
+            props.setUser(response.data);
+            console.log('set user: ', props.setUser(response.data));
+            console.log(user);
         } catch (error) {
             console.log(error, 'could not GET User');
         }
@@ -125,3 +131,10 @@ export function ProfileView({ movies }) {
         </Container>
     )
 }
+
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    };
+}
+export default connect(mapStateToProps, { setUser })(ProfileView);
