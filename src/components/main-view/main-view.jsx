@@ -110,8 +110,8 @@ function MainView(props) {
             <Row className="main-view">
                 <Routes>
                     <Route path="/" element={(
-                        (!user) ?
-                            <LoginView onLoggedIn={user => onLoggedIn(user)} />
+                        (!Username) ?
+                            <LoginView onLoggedIn={Username => onLoggedIn(Username)} />
                             :
                             (movies.length === 0) ?
                                 <div className="main-view">
@@ -122,7 +122,7 @@ function MainView(props) {
                     )} />
 
                     <Route path="/register" element={
-                        (user) ?
+                        (Username) ?
                             redirect("/")
                             :
                             <RegistrationView />
@@ -150,7 +150,7 @@ function MainView(props) {
                     } />
 
                     <Route path={`/users/${Username}`} element={
-                        (!user) ?
+                        (!Username) ?
                             redirect("/")
                             :
                             <ProfileView movies={movies} unfavorite={unfavorite}/>
