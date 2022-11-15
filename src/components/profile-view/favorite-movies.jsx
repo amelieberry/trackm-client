@@ -4,7 +4,7 @@ import { Button, Card, Col, Row } from 'react-bootstrap';
 
 import { Link } from 'react-router-dom';
 
-export function FavoriteMovies({ favoriteMoviesList, removeFav }) {
+export function FavoriteMovies({ favoriteMoviesList, unfavorite }) {
     return (
         <div>
             <h2 className="text-center">Favorite Movies</h2>
@@ -16,7 +16,7 @@ export function FavoriteMovies({ favoriteMoviesList, removeFav }) {
                             <Link to={`/movies/${movies._id}`}>
                                 <Card.Title>{movies.Title}</Card.Title>
                             </Link>
-                            <Button className="unfavorite-button" variant="secondary" onClick={() => removeFav(movies._id)}>Unfavorite</Button>
+                            <Button className="unfavorite-button" variant="secondary" onClick={() => unfavorite(movies._id)}>Unfavorite</Button>
                         </Card.Body>
                     </Card>
                 ))}
