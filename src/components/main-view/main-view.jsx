@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Routes, redirect } from 'react-router-d
 
 import { Row } from 'react-bootstrap';
 
-import { setMovies } from '../../actions/actions';
+import { setMovies, setUser } from '../../actions/actions';
 
 import MoviesList from '../movies-list/movies-list';
 import { NavbarView } from '../navbar/navbar';
@@ -16,7 +16,7 @@ import { LoginView } from '../login-view/login-view';
 import { MovieView } from '../movie-view/movie-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
-import { ProfileView } from '../profile-view/profile-view';
+import ProfileView from '../profile-view/profile-view';
 
 import './main-view.scss';
 
@@ -120,7 +120,10 @@ function MainView(props) {
 }
 
 let mapStateToProps = state => {
-    return { movies: state.movies }
+    return { 
+        movies: state.movies, 
+        user: state.user
+    }
 }
 
-export default connect(mapStateToProps, { setMovies })(MainView);
+export default connect(mapStateToProps, { setMovies, setUser })(MainView);
