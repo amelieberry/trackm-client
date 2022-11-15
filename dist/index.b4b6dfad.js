@@ -30604,6 +30604,7 @@ var _movieView = require("../movie-view/movie-view");
 var _directorView = require("../director-view/director-view");
 var _genreView = require("../genre-view/genre-view");
 var _profileView = require("../profile-view/profile-view");
+var _profileViewDefault = parcelHelpers.interopDefault(_profileView);
 var _mainViewScss = require("./main-view.scss");
 var _s = $RefreshSig$();
 // Create mainView using React.Component and expose it
@@ -30713,7 +30714,7 @@ function MainView(props) {
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                             path: `/users/${user}`,
-                            element: !user ? (0, _reactRouterDom.redirect)("/") : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileView.ProfileView), {
+                            element: !user ? (0, _reactRouterDom.redirect)("/") : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileViewDefault.default), {
                                 movies: movies
                             }, void 0, false, void 0, void 0)
                         }, void 0, false, {
@@ -30743,11 +30744,13 @@ _s(MainView, "5s2qRsV95gTJBmaaTh11GoxYeGE=");
 _c = MainView;
 let mapStateToProps = (state)=>{
     return {
-        movies: state.movies
+        movies: state.movies,
+        user: state.user
     };
 };
 exports.default = (0, _reactRedux.connect)(mapStateToProps, {
-    setMovies: (0, _actions.setMovies)
+    setMovies: (0, _actions.setMovies),
+    setUser: (0, _actions.setUser)
 })(MainView);
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -46535,25 +46538,28 @@ $parcel$ReactRefreshHelpers$3c12.prelude(module);
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ProfileView", ()=>ProfileView);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _reactRedux = require("react-redux");
+var _actions = require("../../actions/actions");
 var _reactRouterDom = require("react-router-dom");
 var _reactBootstrap = require("react-bootstrap");
 var _favoriteMovies = require("./favorite-movies");
 var _updateUser = require("./update-user");
 var _profileViewScss = require("./profile-view.scss");
 var _s = $RefreshSig$();
-function ProfileView({ movies  }) {
+function ProfileView(props) {
     _s();
+    let { movies , user  } = props;
     const [favoriteMovies, setFavoriteMovies] = (0, _react.useState)();
-    const [user, setUser] = (0, _react.useState)();
+    // const [user, setUser] = useState();
     const token = localStorage.getItem("token");
     const currentUser = localStorage.getItem("user");
     const navigate = (0, _reactRouterDom.useNavigate)();
+    // GET the user, set user prop to user object
     const getUser = async ()=>{
         try {
             const response = await (0, _axiosDefault.default).get(`https://trackm-app.herokuapp.com/users/${currentUser}`, {
@@ -46561,7 +46567,9 @@ function ProfileView({ movies  }) {
                     Authorization: `Bearer ${token}`
                 }
             });
-            setUser(response.data);
+            props.setUser(response.data);
+            console.log("set user: ", props.setUser(response.data));
+            console.log(user);
         } catch (error) {
             console.log(error, "could not GET User");
         }
@@ -46574,7 +46582,7 @@ function ProfileView({ movies  }) {
                     Authorization: `Bearer ${token}`
                 }
             });
-            setUser(response.data);
+            (0, _actions.setUser)(response.data);
             setFavoriteMovies(movies.filter((movie)=>response.data.FavoriteMovies.includes(movie._id)));
         } catch (error) {
             console.error(error, "Could not remove movie from favorites");
@@ -46631,7 +46639,7 @@ function ProfileView({ movies  }) {
             children: "Loading"
         }, void 0, false, {
             fileName: "src/components/profile-view/profile-view.jsx",
-            lineNumber: 100,
+            lineNumber: 106,
             columnNumber: 17
         }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             className: "profile-view d-flex flex-column justify-content-center align-items-center",
@@ -46644,7 +46652,7 @@ function ProfileView({ movies  }) {
                     ]
                 }, void 0, true, {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 103,
+                    lineNumber: 109,
                     columnNumber: 21
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -46655,26 +46663,26 @@ function ProfileView({ movies  }) {
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 105,
+                        lineNumber: 111,
                         columnNumber: 25
                     }, this)
                 }, void 0, false, {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 104,
+                    lineNumber: 110,
                     columnNumber: 21
                 }, this),
                 !favoriteMovies ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                     className: "main-view"
                 }, void 0, false, {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 108,
+                    lineNumber: 114,
                     columnNumber: 25
                 }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _favoriteMovies.FavoriteMovies), {
                     favoriteMoviesList: favoriteMovies,
                     removeFav: (movieId)=>unfavorite(movieId)
                 }, void 0, false, {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 110,
+                    lineNumber: 116,
                     columnNumber: 25
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _updateUser.UpdateUser), {
@@ -46682,7 +46690,7 @@ function ProfileView({ movies  }) {
                     user: user
                 }, void 0, false, {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 112,
+                    lineNumber: 118,
                     columnNumber: 21
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -46691,12 +46699,12 @@ function ProfileView({ movies  }) {
                         children: "Delete User Info"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 114,
+                        lineNumber: 120,
                         columnNumber: 25
                     }, this)
                 }, void 0, false, {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 113,
+                    lineNumber: 119,
                     columnNumber: 21
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.CardGroup), {
@@ -46714,42 +46722,50 @@ function ProfileView({ movies  }) {
                                 children: "Delete Account"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 119,
+                                lineNumber: 125,
                                 columnNumber: 33
                             }, this)
                         }, void 0, false, {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 118,
+                            lineNumber: 124,
                             columnNumber: 29
                         }, this)
                     }, void 0, false, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 117,
+                        lineNumber: 123,
                         columnNumber: 25
                     }, this)
                 }, void 0, false, {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 116,
+                    lineNumber: 122,
                     columnNumber: 21
                 }, this)
             ]
         }, void 0, true, {
             fileName: "src/components/profile-view/profile-view.jsx",
-            lineNumber: 102,
+            lineNumber: 108,
             columnNumber: 17
         }, this)
     }, void 0, false, {
         fileName: "src/components/profile-view/profile-view.jsx",
-        lineNumber: 98,
+        lineNumber: 104,
         columnNumber: 9
     }, this);
 }
-_s(ProfileView, "IeVpIgOFGAdAVylvEnJzKH4YFfU=", false, function() {
+_s(ProfileView, "MILPWunowmQGBamureUlhkM/Ba8=", false, function() {
     return [
         (0, _reactRouterDom.useNavigate)
     ];
 });
 _c = ProfileView;
+const mapStateToProps = (state)=>{
+    return {
+        user: state.user
+    };
+};
+exports.default = (0, _reactRedux.connect)(mapStateToProps, {
+    setUser: (0, _actions.setUser)
+})(ProfileView);
 var _c;
 $RefreshReg$(_c, "ProfileView");
 
@@ -46758,7 +46774,7 @@ $RefreshReg$(_c, "ProfileView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","axios":"jo6P5","react-router-dom":"9xmpe","react-bootstrap":"3AD9A","./favorite-movies":"dTTQH","./update-user":"2SBwg","./profile-view.scss":"eyKYH","@parcel/transformer-js/src/esmodule-helpers.js":"1Tmns","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kcKvt"}],"dTTQH":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","axios":"jo6P5","react-redux":"bdVon","../../actions/actions":"biFwH","react-router-dom":"9xmpe","react-bootstrap":"3AD9A","./favorite-movies":"dTTQH","./update-user":"2SBwg","./profile-view.scss":"eyKYH","@parcel/transformer-js/src/esmodule-helpers.js":"1Tmns","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kcKvt"}],"dTTQH":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$8767 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
