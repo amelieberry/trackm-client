@@ -1,4 +1,4 @@
-.favorite-button {
+.movie-button {
   width: 100%;
 }
 
@@ -124,6 +124,16 @@
 .button-forms {
   width: 100%;
   margin: 20px auto;
+}
+
+.favorite-button {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+}
+
+.fav-icon {
+  height: 40px;
 }
 
 html body, .app-container {
