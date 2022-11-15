@@ -4,26 +4,9 @@ import { Card, Button, Col, Row } from 'react-bootstrap';
 
 import { Link } from "react-router-dom";
 
-import axios from 'axios';
-
 import './movie-card.scss';
 
-
-export function MovieCard({movie}) {
-    const token = localStorage.getItem("token");
-    const currentUser = localStorage.getItem("user");
-
-    const addFavorite = async (movieId) => {
-        console.log(movieId, currentUser)
-        try {
-        const response = await axios.post(`https://trackm-app.herokuapp.com/users/${currentUser}/movies/${movieId}`,{} ,{
-                headers: { Authorization: `Bearer ${token}` }
-            });
-        } catch (error) {
-            console.error(error, 'Could not add movie to favorites');
-        }
-    }
-    
+export function MovieCard({movie, addFavorite}) {  
     return (
         <Card bg="dark" style={{ margin: '10px' }}>
             <Card.Img crossOrigin="anonymous" variant="top" src={movie.ImagePath} />
