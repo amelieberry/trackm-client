@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Routes, redirect } from 'react-router-d
 
 import { Row } from 'react-bootstrap';
 
-import { setMovies, setUser } from '../../actions/actions';
+import { setMovies, setUser, setFavorite, deleteFavorite } from '../../actions/actions';
 
 import MoviesList from '../movies-list/movies-list';
 import { NavbarView } from '../navbar/navbar';
@@ -23,9 +23,13 @@ import './main-view.scss';
 
 // Create mainView using React.Component and expose it
 function MainView(props) {
-    let { movies } = props;
-    // const [movies, setMovies] = useState([]);
-    const [user, setUser] = useState(null);
+    let { movies, user } = props;
+    const { Username, FavoriteMovies } = user;
+    console.log('main-view props: ', props);
+    console.log('user prop: ', Username, FavoriteMovies );
+    
+
+    // const [user, setUser] = useState(null);
 
     // get movies from API on logged-in
     const getMovies = async (token) => {
@@ -39,21 +43,35 @@ function MainView(props) {
         }
     }
 
+    // GET the user, set user prop to user object
+    const getUser = async () => {
+        const user = localStorage.getItem('user');
+        const token = localStorage.getItem("token");
+        try {
+            const response = await axios.get(`https://trackm-app.herokuapp.com/users/${user}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            props.setUser(response.data);
+        } catch (error) {
+            console.log(error, 'could not GET User');
+        }
+    }
+
     // check if user is logged-in on page-load by checking the accessToken, if they are logged-in, get list of movies
     useEffect(() => {
         let accessToken = localStorage.getItem('token');
         if (accessToken !== null) {
-            setUser(localStorage.getItem('user'));
+            getUser(accessToken)
         }
-        if(user && movies.length === 0){
+        if (user && movies.length === 0) {
             getMovies(accessToken)
         }
-    });
+    }, []);
 
     // update user property in state to the successfully logged-in user
     const onLoggedIn = (authData) => {
         // save Username in the user state
-        setUser(authData.user.Username);
+        props.setUser(authData.user);
         // save authentication info
         localStorage.setItem('token', authData.token);
         localStorage.setItem('user', authData.user.Username);
@@ -61,9 +79,34 @@ function MainView(props) {
         getMovies(authData.token);
     }
 
-    return (  
+    const addFavorite = async (movieId) => {
+        const token = localStorage.getItem("token");
+        try {
+            const response = await axios.post(`https://trackm-app.herokuapp.com/users/${Username}/movies/${movieId}`, {}, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            props.setFavorite(movieId);
+        } catch (error) {
+            console.error(error, 'Could not add movie to favorites');
+        }
+    }
+
+    const unfavorite = async (movieId) => {
+        const token = localStorage.getItem("token");
+        try {
+            const response = await axios.delete(`https://trackm-app.herokuapp.com/users/${Username}/movies/${movieId}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            props.setUser(response.data);
+            props.deleteFavorite(movieId);
+        } catch (error) {
+            console.error(error, 'Could not remove movie from favorites');
+        }
+    }
+
+    return (
         <Router>
-            <NavbarView user={user} />
+            <NavbarView user={Username} />
             <Row className="main-view">
                 <Routes>
                     <Route path="/" element={(
@@ -75,7 +118,7 @@ function MainView(props) {
                                     <h2>Loading, please wait</h2>
                                 </div>
                                 :
-                                <MoviesList movies={movies} />                               
+                                <MoviesList movies={movies} addFavorite={addFavorite}/>
                     )} />
 
                     <Route path="/register" element={
@@ -106,11 +149,11 @@ function MainView(props) {
                             <DirectorView />
                     } />
 
-                    <Route path={`/users/${user}`} element={
+                    <Route path={`/users/${Username}`} element={
                         (!user) ?
                             redirect("/")
                             :
-                            <ProfileView movies={movies} />
+                            <ProfileView movies={movies} unfavorite={unfavorite}/>
                     } />
                 </Routes>
             </Row>
@@ -120,10 +163,10 @@ function MainView(props) {
 }
 
 let mapStateToProps = state => {
-    return { 
-        movies: state.movies, 
+    return {
+        movies: state.movies,
         user: state.user
     }
 }
 
-export default connect(mapStateToProps, { setMovies, setUser })(MainView);
+export default connect(mapStateToProps, { setMovies, setUser, setFavorite, deleteFavorite })(MainView);
