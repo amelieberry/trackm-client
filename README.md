@@ -18,7 +18,7 @@ The API for this application can be found on the [movie-api](https://github.com/
 * Returns information about the selected director(bio, birth year, death year) as well as a list of matching movies
 #### Profile View
 * Returns the user's profile showing the user's information and allowing the users to take update and delete their account
-* The favorite movies are displayed on card with the poster and title of the movie as well as a button to unfavorite the movie
+* The favorite movies are displayed on card with the poster and title of the movie as well as a button to toggle favorite movies
 * The user update form allows users to apdate their username, password and email.
 
 ## Links
