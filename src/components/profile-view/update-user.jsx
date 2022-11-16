@@ -7,6 +7,10 @@ export function UpdateUser({ handleSubmit, user }) {
     const [newPassword, setNewPassword] = useState('');
     const [email, setEmail] = useState('');
 
+    const [usernameErr, setUsernameErr] = useState('');
+    const [passwordErr, setPasswordErr] = useState('');
+    const [emailErr, setEmailErr] = useState('');
+
     return (
         <div className="user-forms d-flex flex-column justify-content-center align-items-center">
             <Row>
