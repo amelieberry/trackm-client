@@ -28,6 +28,10 @@
   margin-bottom: 20px;
 }
 
+.movie-title, .movie-details {
+  margin: 10px 0;
+}
+
 .favorite-button {
   width: 100%;
 }
@@ -48,10 +52,6 @@
   .card-columns {
     column-count: 3 !important;
   }
-}
-
-.movie-title, .movie-details {
-  margin: 10px 0;
 }
 
 .director-title {

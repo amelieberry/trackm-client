@@ -1,68 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
-import { useNavigate } from 'react-router-dom';
+import { updateUser, deleteUser } from '../../actions/actions';
 
-import { Container, Col, Row, CardGroup, Card, Button } from 'react-bootstrap';
+import { Container, Row, CardGroup, Card, Button } from 'react-bootstrap';
 
 import { FavoriteMovies } from './favorite-movies';
 import { UpdateUser } from './update-user';
 
 import './profile-view.scss';
 
+function ProfileView(props) {
+    let { movies, user } = props;
 
-export function ProfileView({ movies }) {
-    const [favoriteMovies, setFavoriteMovies] = useState();
-    const [user, setUser] = useState();
-    const token = localStorage.getItem("token");
-    const currentUser = localStorage.getItem("user");
+    const token = localStorage.getItem('token');
 
-    const navigate = useNavigate();
-
-
-    const getUser = async () => {
+    const handleUpdate = async (updateObject) => {
         try {
-            const response = await axios.get(`https://trackm-app.herokuapp.com/users/${currentUser}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            setUser(response.data);
-        } catch (error) {
-            console.log(error, 'could not GET User');
-        }
-    }
-
-    // const onUpdatedUser()
-
-    const unfavorite = async (movieId) => {
-        try {
-            const response = await axios.delete(`https://trackm-app.herokuapp.com/users/${currentUser}/movies/${movieId}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            setUser(response.data);
-            setFavoriteMovies(movies.filter((movie) => response.data.FavoriteMovies.includes(movie._id)))
-        } catch (error) {
-            console.error(error, 'Could not remove movie from favorites');
-        }
-    }
-
-    const handleSubmit = async (e, username, newPassword, email, user) => {
-        e.preventDefault();
-        try {
-            let updateObject = {
-                Username: username ? username : user.Username,
-                Email: email ? email : user.Email,
-            };
-            if (newPassword) {
-                updateObject.Password = newPassword
-            }
-            const response = await axios.put(`https://trackm-app.herokuapp.com/users/${user.Username}`, updateObject, {
+            const response = await axios.put(`https://trackm-app.herokuapp.com/users/${user.Username}`, { ...updateObject }, {
                 headers: { Authorization: `Bearer ${token}` },
             });
+            console.log('reponse', response);
+            updateUser({ ...updateObject });
             console.log(updateObject);
-            if (username) {
-                alert('You will now be logged out, please log back in with the updated username');
-                localStorage.clear();
-                window.open("/", "_self")
+            if (updateObject.Username !== user.Username) {
+                alert('Your username has been updated.');
+                localStorage.setItem('user', updateObject.Username);
+                window.open(`/users/${updateObject.Username}`, '_self')
             }
         } catch (error) {
             console.log(error)
@@ -70,29 +35,24 @@ export function ProfileView({ movies }) {
     }
 
     const handleDelete = async () => {
-        try {
-            const response = await axios.delete(`https://trackm-app.herokuapp.com/users/${currentUser}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            alert('Your account was permanently deleted');
-            localStorage.clear();
-            window.open('/', '_self');
-        } catch (error) {
-            console.log(error);
+        if (user.Username && token) {
+            let confirmDelete = confirm('You account will be permanently deleted, are you sure you want to continue?');
+            if (!confirmDelete) return;
+
+            try {
+                await axios.delete(`https://trackm-app.herokuapp.com/users/${user.Username}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                alert('Your account was permanently deleted');
+                localStorage.clear();
+                deleteUser({});
+                window.open('/', '_self');
+            } catch (error) {
+                console.log(error);
+            }
         }
+
     }
-
-    useEffect(() => {
-        getUser();
-    }, []);
-
-    useEffect(() => {
-        if (!user) {
-            setFavoriteMovies([])
-        } else {
-            setFavoriteMovies(movies.filter((movie) => user.FavoriteMovies.includes(movie._id)));
-        }
-    }, [user])
 
     return (
         <Container>
@@ -104,12 +64,12 @@ export function ProfileView({ movies }) {
                     <Row>
                         <p>Email: {user.Email}</p>
                     </Row>
-                    {(!favoriteMovies) ?
+                    {(!user.FavoriteMovies) ?
                         <div className="main-view"></div>
                         :
-                        <FavoriteMovies favoriteMoviesList={favoriteMovies} removeFav={(movieId) => unfavorite(movieId)} />
+                        <FavoriteMovies favoriteMoviesList={movies.filter((movie) => user.FavoriteMovies.includes(movie._id))} />
                     }
-                    <UpdateUser handleSubmit={handleSubmit} user={user} />
+                    <UpdateUser handleUpdate={handleUpdate} user={user} />
                     <Row>
                         <h2 className="update-title">Delete User Info</h2>
                     </Row>
@@ -125,3 +85,10 @@ export function ProfileView({ movies }) {
         </Container>
     )
 }
+
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    };
+}
+export default connect(mapStateToProps, { updateUser, deleteUser })(ProfileView);
