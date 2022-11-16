@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Routes, redirect } from 'react-router-d
 
 import { Row } from 'react-bootstrap';
 
-import { setMovies, setUser, setFavorite, deleteFavorite } from '../../actions/actions';
+import { setMovies, setUser } from '../../actions/actions';
 
 import MoviesList from '../movies-list/movies-list';
 import { NavbarView } from '../navbar/navbar';
@@ -23,13 +23,8 @@ import './main-view.scss';
 
 // Create mainView using React.Component and expose it
 function MainView(props) {
-    let { movies, user } = props;
+    let { movies, user, toggleFavorite } = props;
     const { Username, FavoriteMovies } = user;
-    console.log('main-view props: ', props);
-    console.log('user prop: ', Username, FavoriteMovies );
-    
-
-    // const [user, setUser] = useState(null);
 
     // get movies from API on logged-in
     const getMovies = async (token) => {
@@ -79,31 +74,6 @@ function MainView(props) {
         getMovies(authData.token);
     }
 
-    const addFavorite = async (movieId) => {
-        const token = localStorage.getItem("token");
-        try {
-            const response = await axios.post(`https://trackm-app.herokuapp.com/users/${Username}/movies/${movieId}`, {}, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            props.setFavorite(movieId);
-        } catch (error) {
-            console.error(error, 'Could not add movie to favorites');
-        }
-    }
-
-    const unfavorite = async (movieId) => {
-        const token = localStorage.getItem("token");
-        try {
-            const response = await axios.delete(`https://trackm-app.herokuapp.com/users/${Username}/movies/${movieId}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            props.setUser(response.data);
-            props.deleteFavorite(movieId);
-        } catch (error) {
-            console.error(error, 'Could not remove movie from favorites');
-        }
-    }
-
     return (
         <Router>
             <NavbarView user={Username} />
@@ -118,7 +88,7 @@ function MainView(props) {
                                     <h2>Loading, please wait</h2>
                                 </div>
                                 :
-                                <MoviesList movies={movies} addFavorite={addFavorite}/>
+                                <MoviesList movies={movies} toggleFavorite={toggleFavorite}/>
                     )} />
 
                     <Route path="/register" element={
@@ -153,7 +123,7 @@ function MainView(props) {
                         (!Username) ?
                             redirect("/")
                             :
-                            <ProfileView movies={movies} unfavorite={unfavorite}/>
+                            <ProfileView movies={movies} toggleFavorite={toggleFavorite}/>
                     } />
                 </Routes>
             </Row>
@@ -169,4 +139,4 @@ let mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { setMovies, setUser, setFavorite, deleteFavorite })(MainView);
+export default connect(mapStateToProps, { setMovies, setUser })(MainView);
