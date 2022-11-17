@@ -92,9 +92,9 @@ function MainView(props) {
                     )} />
 
                     <Route path="/register" element={
-                        (Username) ?
-                            redirect("/")
-                            :
+                        // (Username) ?
+                        //     redirect("/")
+                        //     :
                             <RegistrationView />
                     } />
 
@@ -120,9 +120,9 @@ function MainView(props) {
                     } />
 
                     <Route path={`/users/${Username}`} element={
-                        (!Username) ?
-                            redirect("/")
-                            :
+                        // (!Username) ?
+                        //     redirect("/")
+                        //     :
                             <ProfileView movies={movies} toggleFavorite={toggleFavorite}/>
                     } />
                 </Routes>
