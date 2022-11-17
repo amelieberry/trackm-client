@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
+
 import { connect } from 'react-redux';
 
 import { updateUser, deleteUser } from '../../actions/actions';
@@ -21,9 +23,7 @@ function ProfileView(props) {
             const response = await axios.put(`https://trackm-app.herokuapp.com/users/${user.Username}`, { ...updateObject }, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-            console.log('reponse', response);
             updateUser({ ...updateObject });
-            console.log(updateObject);
             if (updateObject.Username !== user.Username) {
                 alert('Your username has been updated.');
                 localStorage.setItem('user', updateObject.Username);
@@ -38,7 +38,6 @@ function ProfileView(props) {
         if (user.Username && token) {
             let confirmDelete = confirm('You account will be permanently deleted, are you sure you want to continue?');
             if (!confirmDelete) return;
-
             try {
                 await axios.delete(`https://trackm-app.herokuapp.com/users/${user.Username}`, {
                     headers: { Authorization: `Bearer ${token}` }
@@ -51,7 +50,6 @@ function ProfileView(props) {
                 console.log(error);
             }
         }
-
     }
 
     return (
@@ -85,6 +83,12 @@ function ProfileView(props) {
         </Container>
     )
 }
+
+ProfileView.propTypes = {
+    Username: PropTypes.string,
+    Password: PropTypes.string,
+    Email: PropTypes.string,
+};
 
 const mapStateToProps = state => {
     return {

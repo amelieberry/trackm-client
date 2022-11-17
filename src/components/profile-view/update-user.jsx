@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from 'prop-types';
 
 import { Form, Button, Row, Card, CardGroup } from 'react-bootstrap';
 
@@ -38,7 +39,6 @@ export function UpdateUser({ handleUpdate, user }) {
     }
 
     const handleSubmit = (e) => {
-        console.log(e);
         e.preventDefault();
         const isReq = validate();
         if (isReq) {
@@ -49,7 +49,6 @@ export function UpdateUser({ handleUpdate, user }) {
             if (newPassword) {
                 updateObject.Password = newPassword
             };
-            console.log('submit', updateObject)
             handleUpdate(updateObject);
         }
     }
@@ -104,3 +103,9 @@ export function UpdateUser({ handleUpdate, user }) {
         </div>
     )
 }
+
+UpdateUser.propTypes = {
+    Username: PropTypes.string,
+    Password: PropTypes.string,
+    Email: PropTypes.string,
+};

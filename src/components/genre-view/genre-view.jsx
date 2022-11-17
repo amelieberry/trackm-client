@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+
 import { Row, Col, Button, Container } from 'react-bootstrap';
 
 import { useNavigate, useParams } from 'react-router-dom';
@@ -23,7 +23,6 @@ export function GenreView() {
         try {
             if (!genre) {
                 const genreName = params.name;
-                console.log(genreName);
                 const response = await axios.get(`https://trackm-app.herokuapp.com/movies/Genre/${genreName}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
