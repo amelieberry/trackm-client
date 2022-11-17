@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
+
 import { connect } from 'react-redux';
 
 import { updateUser, deleteUser } from '../../actions/actions';
@@ -85,6 +87,12 @@ function ProfileView(props) {
         </Container>
     )
 }
+
+ProfileView.propTypes = {
+    Username: PropTypes.string,
+    Password: PropTypes.string,
+    Email: PropTypes.string,
+};
 
 const mapStateToProps = state => {
     return {

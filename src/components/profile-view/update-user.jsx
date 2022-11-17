@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from 'prop-types';
 
 import { Form, Button, Row, Card, CardGroup } from 'react-bootstrap';
 
@@ -104,3 +105,9 @@ export function UpdateUser({ handleUpdate, user }) {
         </div>
     )
 }
+
+UpdateUser.propTypes = {
+    Username: PropTypes.string,
+    Password: PropTypes.string,
+    Email: PropTypes.string,
+};
