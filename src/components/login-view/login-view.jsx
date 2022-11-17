@@ -16,7 +16,7 @@ export function LoginView(props) {
     // validate user input
     const validate = () => {
         let isReq = true;
-        if(!username) {
+        if (!username) {
             setUsernameErr('Username Required');
             isReq = false;
         } else if (username.length < 3) {

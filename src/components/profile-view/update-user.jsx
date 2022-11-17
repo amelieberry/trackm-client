@@ -39,7 +39,6 @@ export function UpdateUser({ handleUpdate, user }) {
     }
 
     const handleSubmit = (e) => {
-        console.log(e);
         e.preventDefault();
         const isReq = validate();
         if (isReq) {
@@ -50,7 +49,6 @@ export function UpdateUser({ handleUpdate, user }) {
             if (newPassword) {
                 updateObject.Password = newPassword
             };
-            console.log('submit', updateObject)
             handleUpdate(updateObject);
         }
     }

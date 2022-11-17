@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import PropTypes from 'prop-types';
-
 import { Row, Col, Button, Container } from 'react-bootstrap';
 
 import { useNavigate, useParams } from 'react-router-dom';
@@ -21,7 +19,6 @@ export function DirectorView() {
     const getDirector = async () => {
         try {
             const directorName = params.name;
-            console.log(directorName);
             const response = await axios.get(`https://trackm-app.herokuapp.com/movies/Director/${directorName}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -78,14 +75,6 @@ export function DirectorView() {
                     </Row>
                 </div>
             }
-
         </Container>
     );
 }
-
-// DirectorView.propTypes = {
-//     Name: PropTypes.string.isRequired,
-//     Bio: PropTypes.string.isRequired,
-//     Birth: PropTypes.string.isRequired,
-//     Death: PropTypes.string,
-// };

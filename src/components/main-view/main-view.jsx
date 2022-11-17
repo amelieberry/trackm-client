@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 
 import { connect } from 'react-redux';
@@ -24,7 +24,7 @@ import './main-view.scss';
 // Create mainView using React.Component and expose it
 function MainView(props) {
     let { movies, user, toggleFavorite } = props;
-    const { Username, FavoriteMovies } = user;
+    const { Username } = user;
 
     // get movies from API on logged-in
     const getMovies = async (token) => {
@@ -88,7 +88,7 @@ function MainView(props) {
                                     <h2>Loading, please wait</h2>
                                 </div>
                                 :
-                                <MoviesList movies={movies} toggleFavorite={toggleFavorite}/>
+                                <MoviesList movies={movies} toggleFavorite={toggleFavorite} />
                     )} />
 
                     <Route path="/register" element={
@@ -123,12 +123,11 @@ function MainView(props) {
                         (!Username) ?
                             redirect("/")
                             :
-                            <ProfileView movies={movies} toggleFavorite={toggleFavorite}/>
+                            <ProfileView movies={movies} toggleFavorite={toggleFavorite} />
                     } />
                 </Routes>
             </Row>
         </Router>
-
     );
 }
 

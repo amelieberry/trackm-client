@@ -51,14 +51,13 @@ export function RegistrationView() {
         const isReq = validate();
         if (isReq) {
             try {
-                console.log(username, password, email, birthday);
                 const response = await axios.post('https://trackm-app.herokuapp.com/users/', {
                     Username: username,
                     Password: password,
                     Email: email,
                     Birthday: birthday
                 })
-                console.log(response.data);
+                alert('Welcome to Track\'M, you have been successfully registered. You will be redirected to the login page.');
                 window.open('/', '_self');
             } catch (error) {
                 console.error(error, 'error registering user');
