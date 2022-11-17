@@ -20,68 +20,28 @@
   }
 }
 
-.nav-logo {
-  cursor: pointer;
+html body, .app-container {
+  color: #fff;
+  background: #000;
 }
 
-.button-register {
+.main-view {
+  margin-top: 5rem;
+}
+
+.button-forms {
   width: 100%;
   margin: 20px auto;
 }
 
-.registration-container {
-  height: calc(100vh - 5rem);
+.favorite-button {
+  position: absolute;
+  top: 3px;
+  right: 3px;
 }
 
-.registration-title {
-  margin-bottom: 20px;
-}
-
-.button-login {
-  width: 100%;
-  margin: 20px auto;
-}
-
-.login-container {
-  height: calc(100vh - 5rem);
-}
-
-.login-title {
-  margin-bottom: 20px;
-}
-
-.movie-title, .movie-details {
-  margin: 10px 0;
-}
-
-.director-title {
-  margin: 20px 0;
-}
-
-.director-description {
-  width: 80%;
-  margin: 0 auto;
-}
-
-@media screen and (min-width: 768px) {
-  .director-description {
-    width: 70%;
-  }
-}
-
-.genre-title {
-  margin: 20px 0;
-}
-
-.genre-description {
-  width: 80%;
-  margin: 0 auto;
-}
-
-@media screen and (min-width: 768px) {
-  .genre-description {
-    width: 70%;
-  }
+.fav-icon {
+  height: 40px;
 }
 
 .unfavorite-button {
@@ -117,28 +77,68 @@
   }
 }
 
-.main-view {
-  margin-top: 5rem;
+.genre-title {
+  margin: 20px 0;
 }
 
-.button-forms {
+.genre-description {
+  width: 80%;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+  .genre-description {
+    width: 70%;
+  }
+}
+
+.director-title {
+  margin: 20px 0;
+}
+
+.director-description {
+  width: 80%;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+  .director-description {
+    width: 70%;
+  }
+}
+
+.movie-title, .movie-details {
+  margin: 10px 0;
+}
+
+.button-login {
   width: 100%;
   margin: 20px auto;
 }
 
-.favorite-button {
-  position: absolute;
-  top: 3px;
-  right: 3px;
+.login-container {
+  height: calc(100vh - 5rem);
 }
 
-.fav-icon {
-  height: 40px;
+.login-title {
+  margin-bottom: 20px;
 }
 
-html body, .app-container {
-  color: #fff;
-  background: #000;
+.button-register {
+  width: 100%;
+  margin: 20px auto;
+}
+
+.registration-container {
+  height: calc(100vh - 5rem);
+}
+
+.registration-title {
+  margin-bottom: 20px;
+}
+
+.nav-logo {
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=index.e3f97e84.css.map */

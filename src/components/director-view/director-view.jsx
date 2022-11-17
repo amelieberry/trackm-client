@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+
 import PropTypes from 'prop-types';
+
 import { Row, Col, Button, Container } from 'react-bootstrap';
 
 import { useNavigate, useParams } from 'react-router-dom';
@@ -27,6 +29,7 @@ export function DirectorView() {
                 ...response.data.director.Director,
                 matchingMovies: response.data.matchingMovies
             });
+            console.log(setDirector)
         } catch (error) {
             console.log(error, 'could not GET User');
         }
@@ -79,3 +82,10 @@ export function DirectorView() {
         </Container>
     );
 }
+
+// DirectorView.propTypes = {
+//     Name: PropTypes.string.isRequired,
+//     Bio: PropTypes.string.isRequired,
+//     Birth: PropTypes.string.isRequired,
+//     Death: PropTypes.string,
+// };
