@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import PropTypes from 'prop-types';
 import { Row, Col, Button, Container } from 'react-bootstrap';
 
 import { useNavigate, useParams } from 'react-router-dom';
@@ -19,14 +19,14 @@ export function DirectorView() {
     const getDirector = async () => {
         try {
             const directorName = params.name;
-            const response = await axios.get(`https://trackm-app.herokuapp.com/movies/Director/${directorName}`, {
+            console.log(directorName);
+            const response = await axios.get(`https://trackm.onrender.com/movies/Director/${directorName}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setDirector({
                 ...response.data.director.Director,
                 matchingMovies: response.data.matchingMovies
             });
-            console.log(setDirector)
         } catch (error) {
             console.log(error, 'could not GET User');
         }
@@ -75,6 +75,7 @@ export function DirectorView() {
                     </Row>
                 </div>
             }
+
         </Container>
     );
 }

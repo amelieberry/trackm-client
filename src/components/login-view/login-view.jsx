@@ -16,7 +16,7 @@ export function LoginView(props) {
     // validate user input
     const validate = () => {
         let isReq = true;
-        if (!username) {
+        if(!username) {
             setUsernameErr('Username Required');
             isReq = false;
         } else if (username.length < 3) {
@@ -40,7 +40,7 @@ export function LoginView(props) {
         if (isReq) {
             try {
                 // send request to server for authentication then call props.onLoggedIn(response.data)
-                const response = await axios.post('https://trackm-app.herokuapp.com/login', {
+                const response = await axios.post('https://trackm.onrender.com/login', {
                     Username: username,
                     Password: password
                 })

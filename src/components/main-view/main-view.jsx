@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import { connect } from 'react-redux';
@@ -24,12 +24,12 @@ import './main-view.scss';
 // Create mainView using React.Component and expose it
 function MainView(props) {
     let { movies, user, toggleFavorite } = props;
-    const { Username } = user;
+    const { Username, FavoriteMovies } = user;
 
     // get movies from API on logged-in
     const getMovies = async (token) => {
         try {
-            const response = await axios.get("https://trackm-app.herokuapp.com/movies", {
+            const response = await axios.get("https://trackm.onrender.com/movies", {
                 headers: { Authorization: `Bearer ${token}` }
             });
             props.setMovies(response.data);
@@ -43,7 +43,7 @@ function MainView(props) {
         const user = localStorage.getItem('user');
         const token = localStorage.getItem("token");
         try {
-            const response = await axios.get(`https://trackm-app.herokuapp.com/users/${user}`, {
+            const response = await axios.get(`https://trackm.onrender.com/users/${user}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             props.setUser(response.data);
@@ -88,7 +88,7 @@ function MainView(props) {
                                     <h2>Loading, please wait</h2>
                                 </div>
                                 :
-                                <MoviesList movies={movies} toggleFavorite={toggleFavorite} />
+                                <MoviesList movies={movies} toggleFavorite={toggleFavorite}/>
                     )} />
 
                     <Route path="/register" element={
@@ -123,7 +123,7 @@ function MainView(props) {
                         (!Username) ?
                             redirect("/")
                             :
-                            <ProfileView movies={movies} toggleFavorite={toggleFavorite} />
+                            <ProfileView movies={movies} toggleFavorite={toggleFavorite}/>
                     } />
                 </Routes>
             </Row>

@@ -12,7 +12,7 @@ export function MovieCard({ movie, toggleFavorite }) {
     return (
         <Card bg="dark" style={{ margin: '10px' }}>
             <Card.Img crossOrigin="anonymous" variant="top" src={movie.ImagePath} />
-            <FavoriteButton movie={movie} toggleFavorite={toggleFavorite} />
+            <FavoriteButton movie={movie} toggleFavorite={toggleFavorite}/>
             <Card.Body>
                 <Card.Title>{movie.Title}</Card.Title>
                 <Card.Text className="card-genre">{movie.Genre.Name}</Card.Text>
