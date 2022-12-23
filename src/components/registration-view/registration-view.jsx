@@ -4,6 +4,7 @@ import { Form, Button, Card, CardGroup, Container, Col, Row } from 'react-bootst
 
 import './registration-view.scss';
 import axios from 'axios';
+import { apiBaseUri } from '../main-view/main-view';
 
 export function RegistrationView() {
     const [username, setUsername] = useState('');

@@ -10,6 +10,7 @@ import { FavoriteMovies } from './favorite-movies';
 import { UpdateUser } from './update-user';
 
 import './profile-view.scss';
+import { apiBaseUri } from '../main-view/main-view';
 
 function ProfileView(props) {
     let { movies, user } = props;

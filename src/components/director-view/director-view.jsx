@@ -8,7 +8,10 @@ import { MovieCard } from '../movie-card/movie-card';
 
 import axios from 'axios';
 
+
+
 import './director-view.scss';
+import { apiBaseUri } from '../main-view/main-view';
 
 export function DirectorView() {
     const [director, setDirector] = useState();

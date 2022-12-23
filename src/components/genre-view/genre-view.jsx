@@ -9,6 +9,7 @@ import axios from 'axios';
 import { MovieCard } from '../movie-card/movie-card';
 
 import './genre-view.scss';
+import { apiBaseUri } from '../main-view/main-view';
 
 export function GenreView() {
     const [genre, setGenre] = useState();
@@ -33,7 +34,7 @@ export function GenreView() {
                 });
             }
         } catch (error) {
-            console.log(error, 'could not GET User');
+            console.log(error, 'could not GET genre');
         }
     }
 

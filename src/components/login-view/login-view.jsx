@@ -4,6 +4,7 @@ import { Form, Button, Card, CardGroup, Container, Col, Row } from 'react-bootst
 
 import './login-view.scss';
 import axios from 'axios';
+import { apiBaseUri } from '../main-view/main-view';
 
 export function LoginView(props) {
     const [username, setUsername] = useState('');
