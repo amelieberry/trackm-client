@@ -20,7 +20,7 @@ export function DirectorView() {
         try {
             const directorName = params.name;
             console.log(directorName);
-            const response = await axios.get(`https://trackm.onrender.com/movies/Director/${directorName}`, {
+            const response = await axios.get(`https://${apiBaseUri}/movies/Director/${directorName}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setDirector({

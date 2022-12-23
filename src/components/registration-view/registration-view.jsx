@@ -52,7 +52,7 @@ export function RegistrationView() {
         if (isReq) {
             try {
                 console.log(username, password, email, birthday);
-                const response = await axios.post('https://trackm.onrender.com/users/', {
+                const response = await axios.post(`https://${apiBaseUri}/users/`, {
                     Username: username,
                     Password: password,
                     Email: email,

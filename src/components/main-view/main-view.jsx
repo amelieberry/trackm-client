@@ -20,6 +20,7 @@ import ProfileView from '../profile-view/profile-view';
 
 import './main-view.scss';
 
+export const apiBaseUri = "trackm.onrender.com";
 
 // Create mainView using React.Component and expose it
 function MainView(props) {
@@ -29,7 +30,7 @@ function MainView(props) {
     // get movies from API on logged-in
     const getMovies = async (token) => {
         try {
-            const response = await axios.get("https://trackm.onrender.com/movies", {
+            const response = await axios.get(`https://${apiBaseUri}/movies`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             props.setMovies(response.data);
@@ -43,7 +44,7 @@ function MainView(props) {
         const user = localStorage.getItem('user');
         const token = localStorage.getItem("token");
         try {
-            const response = await axios.get(`https://trackm.onrender.com/users/${user}`, {
+            const response = await axios.get(`https://${apiBaseUri}/users/${user}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             props.setUser(response.data);

@@ -18,7 +18,7 @@ function ProfileView(props) {
 
     const handleUpdate = async (updateObject) => {
         try {
-            const response = await axios.put(`https://trackm.onrender.com/users/${user.Username}`, { ...updateObject }, {
+            const response = await axios.put(`https://${apiBaseUri}/users/${user.Username}`, { ...updateObject }, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             console.log('reponse', response);
@@ -40,7 +40,7 @@ function ProfileView(props) {
             if (!confirmDelete) return;
 
             try {
-                await axios.delete(`https://trackm.onrender.com/users/${user.Username}`, {
+                await axios.delete(`https://${apiBaseUri}/users/${user.Username}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 alert('Your account was permanently deleted');

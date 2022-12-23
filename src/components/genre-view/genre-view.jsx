@@ -24,7 +24,7 @@ export function GenreView() {
             if (!genre) {
                 const genreName = params.name;
                 console.log(genreName);
-                const response = await axios.get(`https://trackm.onrender.com/movies/Genre/${genreName}`, {
+                const response = await axios.get(`https://${apiBaseUri}/movies/Genre/${genreName}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setGenre({

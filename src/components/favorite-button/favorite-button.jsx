@@ -9,6 +9,7 @@ import { faHeartCirclePlus, faHeartCircleMinus } from "@fortawesome/free-solid-s
 import { Button } from 'react-bootstrap';
 
 import { setFavorite, deleteFavorite } from '../../actions/actions';
+import { apiBaseUri } from "../main-view/main-view";
 
 function FavoriteButton(props) {
     let { movie, user } = props;
@@ -25,7 +26,7 @@ function FavoriteButton(props) {
         // Delete movie if id exists in Favorite movies
         if (isFavorite === true) {
             try {
-                const response = await axios.delete(`https://trackm-app.herokuapp.com/users/${Username}/movies/${movieId}`, {
+                const response = await axios.delete(`https://${apiBaseUri}/users/${Username}/movies/${movieId}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 props.deleteFavorite(movieId);
@@ -36,7 +37,7 @@ function FavoriteButton(props) {
         // Add movie if id does not exist in Favorite movies
         if (isFavorite === false) {
             try {
-                const response = await axios.post(`https://trackm-app.herokuapp.com/users/${Username}/movies/${movieId}`, {}, {
+                const response = await axios.post(`https://${apiBaseUri}/users/${Username}/movies/${movieId}`, {}, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 props.setFavorite(movieId);

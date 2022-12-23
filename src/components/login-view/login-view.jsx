@@ -40,7 +40,7 @@ export function LoginView(props) {
         if (isReq) {
             try {
                 // send request to server for authentication then call props.onLoggedIn(response.data)
-                const response = await axios.post('https://trackm.onrender.com/login', {
+                const response = await axios.post(`https://${apiBaseUri}/login`, {
                     Username: username,
                     Password: password
                 })
