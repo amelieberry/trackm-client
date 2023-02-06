@@ -21,8 +21,13 @@ The API for this application can be found on the [movie-api](https://github.com/
 * The favorite movies are displayed on card with the poster and title of the movie as well as a button to toggle favorite movies
 * The user update form allows users to apdate their username, password and email.
 
+## App Screenshots
+![A screenshot of the movies page](./src/assets/movie-view-capture.JPG)
+![A screenshot of the profile page](./src/assets/profile-view-capture.JPG)
+
 ## Links
 * Live App: https://trackm-client.netlify.app
+* API: https://trackm.onrender.com/
 
 ## Built with
 * React
