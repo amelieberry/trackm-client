@@ -27,7 +27,10 @@ function MainView(props) {
     let { movies, user, toggleFavorite } = props;
     const { Username, FavoriteMovies } = user;
 
-    // get movies from API on logged-in
+    /**
+     * GET movies from API on logged-in
+     * @param {*} token 
+     */
     const getMovies = async (token) => {
         try {
             const response = await axios.get(`https://${apiBaseUri}/movies`, {
@@ -39,7 +42,9 @@ function MainView(props) {
         }
     }
 
-    // GET the user, set user prop to user object
+    /**
+     * GET the user, set user prop to user object
+     */
     const getUser = async () => {
         const user = localStorage.getItem('user');
         const token = localStorage.getItem("token");
