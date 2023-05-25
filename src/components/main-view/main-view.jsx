@@ -22,7 +22,11 @@ import './main-view.scss';
 
 export const apiBaseUri = "trackm.onrender.com";
 
-// Create mainView using React.Component and expose it
+/**
+ * Create mainView using React.Component and expose it
+ * @param {*} props 
+ * @returns the main view of the app with route paths to all other views
+ */
 function MainView(props) {
     let { movies, user, toggleFavorite } = props;
     const { Username, FavoriteMovies } = user;
@@ -69,7 +73,10 @@ function MainView(props) {
         }
     }, []);
 
-    // update user property in state to the successfully logged-in user
+    /**
+     * update user property in state to the successfully logged-in user
+     * @param {*} authData 
+     */
     const onLoggedIn = (authData) => {
         // save Username in the user state
         props.setUser(authData.user);
