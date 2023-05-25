@@ -89,7 +89,7 @@ function MainView(props) {
 
     return (
         <Router>
-            <NavbarView user={Username} />
+            <NavbarView onLoggedIn={onLoggedIn} user={Username} />
             <Row className="main-view">
                 <Routes>
                     <Route path="/" element={(
