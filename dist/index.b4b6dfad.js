@@ -69656,6 +69656,9 @@ var _s = $RefreshSig$();
 function NavbarView({ user , onLoggedIn  }) {
     _s();
     const navigate = (0, _reactRouterDom.useNavigate)();
+    const location = (0, _reactRouterDom.useLocation)();
+    const loginLocation = location.pathname === "/";
+    const registerLocation = location.pathname === "/register";
     const onLoggedOut = ()=>{
         localStorage.clear();
         window.open("/", "_self");
@@ -69683,18 +69686,19 @@ function NavbarView({ user , onLoggedIn  }) {
         fixed: "top",
         bg: "dark",
         variant: "dark",
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
-            children: [
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Brand, {
-                    className: "nav-logo",
-                    onClick: ()=>navigate("/"),
-                    children: "Track'M"
-                }, void 0, false, {
-                    fileName: "src/components/navbar/navbar.jsx",
-                    lineNumber: 49,
-                    columnNumber: 17
-                }, this),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav), {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Brand, {
+                className: "nav-logo",
+                onClick: ()=>navigate("/"),
+                children: "Track'M"
+            }, void 0, false, {
+                fileName: "src/components/navbar/navbar.jsx",
+                lineNumber: 53,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
+                className: "flex-wrap justify-content-end",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav), {
                     className: "me-auto",
                     children: [
                         isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -69702,7 +69706,7 @@ function NavbarView({ user , onLoggedIn  }) {
                             children: user
                         }, void 0, false, {
                             fileName: "src/components/navbar/navbar.jsx",
-                            lineNumber: 52,
+                            lineNumber: 57,
                             columnNumber: 25
                         }, this),
                         isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -69711,55 +69715,58 @@ function NavbarView({ user , onLoggedIn  }) {
                             children: "Logout"
                         }, void 0, false, {
                             fileName: "src/components/navbar/navbar.jsx",
-                            lineNumber: 55,
+                            lineNumber: 60,
+                            columnNumber: 25
+                        }, this),
+                        !isAuth() && !loginLocation && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                            href: "/",
+                            children: "Login"
+                        }, void 0, false, {
+                            fileName: "src/components/navbar/navbar.jsx",
+                            lineNumber: 63,
+                            columnNumber: 25
+                        }, this),
+                        !isAuth() && !registerLocation && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                            href: "/register",
+                            children: "Register"
+                        }, void 0, false, {
+                            fileName: "src/components/navbar/navbar.jsx",
+                            lineNumber: 66,
                             columnNumber: 25
                         }, this),
                         !isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                            title: "Click here to navigate the app as a guest user.",
+                            className: "",
                             variant: "primary",
                             onClick: handleGuestLogin,
                             children: "Login as Guest"
                         }, void 0, false, {
                             fileName: "src/components/navbar/navbar.jsx",
-                            lineNumber: 58,
-                            columnNumber: 25
-                        }, this),
-                        !isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                            href: "/",
-                            children: "Login"
-                        }, void 0, false, {
-                            fileName: "src/components/navbar/navbar.jsx",
-                            lineNumber: 61,
-                            columnNumber: 25
-                        }, this),
-                        !isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                            href: "/register",
-                            children: "Register"
-                        }, void 0, false, {
-                            fileName: "src/components/navbar/navbar.jsx",
-                            lineNumber: 64,
+                            lineNumber: 69,
                             columnNumber: 25
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/navbar/navbar.jsx",
-                    lineNumber: 50,
+                    lineNumber: 55,
                     columnNumber: 17
                 }, this)
-            ]
-        }, void 0, true, {
-            fileName: "src/components/navbar/navbar.jsx",
-            lineNumber: 48,
-            columnNumber: 13
-        }, this)
-    }, void 0, false, {
+            }, void 0, false, {
+                fileName: "src/components/navbar/navbar.jsx",
+                lineNumber: 54,
+                columnNumber: 13
+            }, this)
+        ]
+    }, void 0, true, {
         fileName: "src/components/navbar/navbar.jsx",
-        lineNumber: 47,
+        lineNumber: 52,
         columnNumber: 9
     }, this);
 }
-_s(NavbarView, "CzcTeTziyjMsSrAVmHuCCb6+Bfg=", false, function() {
+_s(NavbarView, "VDZHUspDq9N5O9RWjniBrjgIdAA=", false, function() {
     return [
-        (0, _reactRouterDom.useNavigate)
+        (0, _reactRouterDom.useNavigate),
+        (0, _reactRouterDom.useLocation)
     ];
 });
 _c = NavbarView;
@@ -69774,7 +69781,7 @@ $RefreshReg$(_c, "NavbarView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","./navbar.scss":"8wkoA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","axios":"jo6P5","../main-view/main-view":"4gflv","prop-types":"7wKI2"}],"8wkoA":[function() {},{}],"3U8r7":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","prop-types":"7wKI2","axios":"jo6P5","../main-view/main-view":"4gflv","./navbar.scss":"8wkoA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"8wkoA":[function() {},{}],"3U8r7":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$789c = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

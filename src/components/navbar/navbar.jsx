@@ -2,7 +2,7 @@ import React from "react";
 
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { apiBaseUri } from '../main-view/main-view';
@@ -12,6 +12,11 @@ import './navbar.scss';
 export function NavbarView({ user, onLoggedIn }) {
 
     const navigate = useNavigate();
+
+    const location = useLocation();
+
+    const loginLocation = location.pathname === "/";
+    const registerLocation = location.pathname === "/register";
 
     const onLoggedOut = () => {
         localStorage.clear();
@@ -45,8 +50,8 @@ export function NavbarView({ user, onLoggedIn }) {
 
     return (
         <Navbar className="navbar-view container-fluid" fixed="top" bg="dark" variant="dark">
-            <Container>
-                <Navbar.Brand className="nav-logo" onClick={() => navigate("/")}>Track'M</Navbar.Brand>
+            <Navbar.Brand className="nav-logo" onClick={() => navigate("/")}>Track'M</Navbar.Brand>
+            <Container className="flex-wrap justify-content-end">
                 <Nav className="me-auto">
                     {isAuth() && (
                         <Nav.Link href={`/users/${user}`}>{user}</Nav.Link>
@@ -54,14 +59,14 @@ export function NavbarView({ user, onLoggedIn }) {
                     {isAuth() && (
                         <Button variant="link" onClick={onLoggedOut}>Logout</Button>
                     )}
-                    {!isAuth() && (
-                        <Button variant="primary" onClick={handleGuestLogin}>Login as Guest</Button>
-                    )}
-                    {!isAuth() && (
+                    {!isAuth() && !loginLocation && (
                         <Nav.Link href="/">Login</Nav.Link>
                     )}
-                    {!isAuth() && (
+                    {!isAuth() && !registerLocation && (
                         <Nav.Link href="/register">Register</Nav.Link>
+                    )}
+                    {!isAuth() && (
+                        <Button title="Click here to navigate the app as a guest user." className="" variant="primary" onClick={handleGuestLogin}>Login as Guest</Button>
                     )}
                 </Nav>
             </Container>
