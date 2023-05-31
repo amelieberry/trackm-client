@@ -18,25 +18,34 @@ function ProfileView(props) {
     const token = localStorage.getItem('token');
 
     const handleUpdate = async (updateObject) => {
-        try {
-            const response = await axios.put(`https://${apiBaseUri}/users/${user.Username}`, { ...updateObject }, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            console.log('reponse', response);
-            updateUser({ ...updateObject });
-            console.log(updateObject);
-            if (updateObject.Username !== user.Username) {
-                alert('Your username has been updated.');
-                localStorage.setItem('user', updateObject.Username);
-                window.open(`/users/${updateObject.Username}`, '_self')
+        if (user._id === '646f3fc9cf4499b52ffad2ab') {
+            alert('You cannot perform this action on a guest account');
+            return;
+        } else {
+            try {
+                const response = await axios.put(`https://${apiBaseUri}/users/${user.Username}`, { ...updateObject }, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                console.log('reponse', response);
+                updateUser({ ...updateObject });
+                console.log(updateObject);
+                if (updateObject.Username !== user.Username) {
+                    alert('Your username has been updated.');
+                    localStorage.setItem('user', updateObject.Username);
+                    window.open(`/users/${updateObject.Username}`, '_self')
+                }
+            } catch (error) {
+                console.log(error)
             }
-        } catch (error) {
-            console.log(error)
         }
     }
 
     const handleDelete = async () => {
-        if (user.Username && token) {
+        if (user._id === '646f3fc9cf4499b52ffad2ab') {
+            alert('You cannot perform this action on a guest account');
+            return;
+        }
+        else if (user.Username && token) {
             let confirmDelete = confirm('You account will be permanently deleted, are you sure you want to continue?');
             if (!confirmDelete) return;
 
