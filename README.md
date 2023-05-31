@@ -1,6 +1,11 @@
 # Track'M - Track'em movies
 The client-side of a movie tracking app allowing users to create an account, access information about different movies and save them to their list of favorites. Users can also update their personal information, and delete their account.
+
 The API for this application can be found on the [movie-api](https://github.com/amelieberry/movie-api) repo.
+
+## New Features
+#### Guest User
+* Users can now view the application without having to create an account by pressing the button "Login as Guest" in the navigation bar. Guest users can still add and remove favorite movies, view the list of movies and their profile. Being logged-in as guest however means that the user cannot update or delete the profile.
 
 ## Views and Features
 #### Main View
